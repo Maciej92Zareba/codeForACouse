@@ -4,8 +4,6 @@ public class GridPointer : MonoBehaviour
 {
     [SerializeField] private LayerMask targetsLayer;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private Material hitMaterial;
-    [SerializeField] private Material defaultMaterial;
 
     private DefaultInputActions defaultInputActions;
     private GridTarget cachedGridTarget;
@@ -37,27 +35,27 @@ public class GridPointer : MonoBehaviour
             
             if (gridTarget != cachedGridTarget)
             {
-                TrySetDefaultMaterialOnCachedTarget();
+                TrySetPrevious();
                 cachedGridTarget = gridTarget;
 
                 if (cachedGridTarget != null)
                 {
-                    cachedGridTarget.BoundMesh.sharedMaterial = hitMaterial;
+                    cachedGridTarget.SetState(GridTargetState.HIGHLIGHTED);
                 }
             }
         }
         else
         {
-            TrySetDefaultMaterialOnCachedTarget();
+            TrySetPrevious();
             cachedGridTarget = null;
         }
     }
 
-    private void TrySetDefaultMaterialOnCachedTarget ()
+    private void TrySetPrevious ()
     {
         if (cachedGridTarget != null)
         {
-            cachedGridTarget.BoundMesh.sharedMaterial = defaultMaterial;
+            cachedGridTarget.RestorePreviousState();
         }
     }
 }

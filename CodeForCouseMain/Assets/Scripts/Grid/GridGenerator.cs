@@ -43,10 +43,11 @@ public class GridGenerator : OdinEditorWindow
                 float zPosition = j * gridDistance + zTopEdge;
                 Vector3 gridPosition = new (xPosition, 0.0f, zPosition);
                 GridTarget gridTarget = Instantiate(gridTargetPrefab, gridParent);
+                gridTarget.BoundGripPosition = new GridPosition(i,j);
                 Transform gridTargetTransform = gridTarget.transform;
                 gridTargetTransform.name = $"GT_{i}_{j}";
                 gridTargetTransform.position = gridPosition;
-                gridController.BoardNodes2dArray[i, j] = gridTarget;
+                gridController.GridTargets2dArray[i, j] = gridTarget;
             }
         }
     }

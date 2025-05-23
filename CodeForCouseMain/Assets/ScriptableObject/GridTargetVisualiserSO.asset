@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62cfee1fb03eab54eabdf05ec0aa2fa8, type: 3}
+  m_Name: GridTargetVisualiserSO
+  m_EditorClassIdentifier: 
+  defaultColor: {fileID: 2100000, guid: 68035d9c5a99b244487a052cc7182fce, type: 2}
+  highlightedColor: {fileID: 2100000, guid: ba6e6a7911f001a47a4e10d5fc82e53a, type: 2}
+  validColor: {fileID: 2100000, guid: ddb6e89fe714082468b0f8e03695a370, type: 2}
