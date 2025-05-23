@@ -28,6 +28,8 @@ public class GridGenerator : OdinEditorWindow
         
         cachedGrid = new GameObject("GridParent");
         Transform gridParent = cachedGrid.transform;
+        GridController gridController = cachedGrid.AddComponent<GridController>();
+        gridController.InitializeGridController(rowCount,columnCount);
 
         float xLeftEdge = (gridDistance * rowCount / -2) + gridDistance / 2;
         float zTopEdge = (gridDistance * columnCount / -2) + gridDistance / 2;
@@ -40,9 +42,11 @@ public class GridGenerator : OdinEditorWindow
             {
                 float zPosition = j * gridDistance + zTopEdge;
                 Vector3 gridPosition = new (xPosition, 0.0f, zPosition);
-                Transform gridTarget = Instantiate(gridTargetPrefab, gridParent).transform;
-                gridTarget.name = $"GridTarget_{i}_{j}";
-                gridTarget.position = gridPosition;
+                GridTarget gridTarget = Instantiate(gridTargetPrefab, gridParent);
+                Transform gridTargetTransform = gridTarget.transform;
+                gridTargetTransform.name = $"GT_{i}_{j}";
+                gridTargetTransform.position = gridPosition;
+                gridController.BoardNodes2dArray[i, j] = gridTarget;
             }
         }
     }
