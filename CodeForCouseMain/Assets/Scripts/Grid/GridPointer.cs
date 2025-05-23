@@ -34,12 +34,16 @@ public class GridPointer : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, targetsLayer) == true)
         {
             GridTarget gridTarget = hit.collider.GetComponent<GridTarget>();
-
+            
             if (gridTarget != cachedGridTarget)
             {
                 TrySetDefaultMaterialOnCachedTarget();
                 cachedGridTarget = gridTarget;
-                cachedGridTarget.BoundMesh.sharedMaterial = hitMaterial;
+
+                if (cachedGridTarget != null)
+                {
+                    cachedGridTarget.BoundMesh.sharedMaterial = hitMaterial;
+                }
             }
         }
         else
