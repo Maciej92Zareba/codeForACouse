@@ -10,7 +10,7 @@ public class GridGenerator : OdinEditorWindow
     [SerializeField] private int columnCount = 5;
     [SerializeField] private float gridDistance = 2.0f;
 
-    private Transform cachedGridParent;
+    private GameObject cachedGrid;
     
     [MenuItem("Tools/" + nameof(GridGenerator))]
     public static void ShowWindow ()
@@ -21,14 +21,13 @@ public class GridGenerator : OdinEditorWindow
     [Button]
     private void GenerateGrid ()
     {
-        if (cachedGridParent != null)
+        if (cachedGrid != null)
         {
-            DestroyImmediate(cachedGridParent);
+            DestroyImmediate(cachedGrid);
         }
         
-        cachedGridParent = new GameObject("GridParent").transform;
-        float gridWidth = rowCount * gridDistance / 2;
-        float gridHeight = columnCount * gridDistance / 2;
+        cachedGrid = new GameObject("GridParent");
+        Transform gridParent = cachedGrid.transform;
 
         float xLeftEdge = (gridDistance * rowCount / -2) + gridDistance / 2;
         float zTopEdge = (gridDistance * columnCount / -2) + gridDistance / 2;
@@ -41,7 +40,7 @@ public class GridGenerator : OdinEditorWindow
             {
                 float zPosition = j * gridDistance + zTopEdge;
                 Vector3 gridPosition = new (xPosition, 0.0f, zPosition);
-                Transform gridTarget = Instantiate(gridTargetPrefab, cachedGridParent).transform;
+                Transform gridTarget = Instantiate(gridTargetPrefab, gridParent).transform;
                 gridTarget.name = $"GridTarget_{i}_{j}";
                 gridTarget.position = gridPosition;
             }
