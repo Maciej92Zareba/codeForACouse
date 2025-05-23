@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a8f67ce6fd6597d48a01d0f15001d90f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - gridTargetPrefab: {fileID: 6431542866958619807, guid: 2ce0781a00d84c24f942bfbfcfd1cac4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
