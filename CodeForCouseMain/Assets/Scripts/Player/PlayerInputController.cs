@@ -33,7 +33,7 @@ public class PlayerInputController : MonoBehaviour
         {
             if (cachedGridTarget != null && cachedGridTarget.CurrentState == GridTargetState.VALID)
             {
-                boundGridController.MovePlayerToGrid(cachedGridTarget.BoundGridPosition);
+                //boundGridController.MovePlayerToGrid(cachedGridTarget.BoundGridPosition);
             }
         }
     }
