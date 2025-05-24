@@ -14,7 +14,7 @@ public class GridController : SerializedMonoBehaviour
 	[SerializeField] private bool canMoveDiagonal = true;
 	[SerializeField, ShowIf(nameof(canMoveDiagonal))] private int playerNormaDistanceToMoveDiagonal = 1;
 
-	private GridPosition playerGridPosition = new(0,0);
+	private GridPosition playerGridPosition;
 	private List<GridTarget> validGridTargets = new();
 
 	public void InitializeGridController (int gridRowCount, int gridColumnCount)
@@ -33,13 +33,30 @@ public class GridController : SerializedMonoBehaviour
 		if (IsOutsideOfGridLength(rowIndex, columIndex) == true)
 		{
 			Debug.LogError("Selected grid is out of range");
+			return;
+		}
+		
+		GridTarget gridTarget = GridTargets2dArray[rowIndex, columIndex];
+
+		if (gridTarget.IsObstructed == true)
+		{
+			Debug.LogError("Selected grid is obstructed");
+			return;
+		}
+		
+		if (playerGridPosition != null)
+		{
+			GridTargets2dArray[playerGridPosition.RowIndex, playerGridPosition.ColumnIndex].IsObstructed = false;
 		}
 		else
 		{
-			player.position = GridTargets2dArray[rowIndex, columIndex].transform.position;
-			playerGridPosition.SetGridPosition(rowIndex, columIndex);
-			RestoreDefaultLook();
+			playerGridPosition = new GridPosition(rowIndex, columIndex);
 		}
+			
+		player.position = GridTargets2dArray[rowIndex, columIndex].PlacedObjectParent.position;
+		playerGridPosition.SetGridPosition(rowIndex, columIndex);
+		GridTargets2dArray[rowIndex, columIndex].IsObstructed = true;
+		RestoreDefaultLook();
 	}
 
 	[Button]
@@ -91,7 +108,7 @@ public class GridController : SerializedMonoBehaviour
 			{
 				GridTarget target = GridTargets2dArray[row, column];
 
-				if (validGridTargets.Contains(target) == false)
+				if (target.IsObstructed == false && validGridTargets.Contains(target) == false)
 				{
 					validGridTargets.Add(target);
 				}

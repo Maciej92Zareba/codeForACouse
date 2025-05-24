@@ -1,12 +1,13 @@
-using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class GridTarget : MonoBehaviour
 {
-	[SerializeField] public MeshRenderer boundMesh;
-	[SerializeField] public GridTargetVisualiserSO boundGridTargetVisualiserSO;
+	[SerializeField] private MeshRenderer gridMesh;
+	[SerializeField] private GridTargetVisualiserSO boundGridTargetVisualiserSO;
 	[field: SerializeField] public GridPosition BoundGripPosition { get; set; }
+	[field: SerializeField] public bool IsObstructed { get; set; }
+	[field: SerializeField] public Transform PlacedObjectParent { get; private set; }
 
 	[ShowInInspector, ReadOnly] private GridTargetState currentState = GridTargetState.DEFAULT;
 	[ShowInInspector, ReadOnly] private GridTargetState previousState = GridTargetState.DEFAULT;
@@ -50,6 +51,6 @@ public class GridTarget : MonoBehaviour
 				break;
 		}
 
-		boundMesh.sharedMaterial = selectedMaterial;
+		gridMesh.sharedMaterial = selectedMaterial;
 	}
 }

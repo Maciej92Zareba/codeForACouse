@@ -31,24 +31,36 @@ public class GridPointer : MonoBehaviour
         
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, targetsLayer) == true)
         {
-            GridTarget gridTarget = hit.collider.GetComponent<GridTarget>();
-            
-            if (gridTarget != cachedGridTarget)
-            {
-                TrySetPrevious();
-                cachedGridTarget = gridTarget;
+            GridRaycastTarget gridRaycastTarget = hit.collider.GetComponent<GridRaycastTarget>();
 
-                if (cachedGridTarget != null)
+            if (gridRaycastTarget != null)
+            {
+                if (gridRaycastTarget.boundGridTarget != cachedGridTarget)
                 {
-                    cachedGridTarget.SetState(GridTargetState.HIGHLIGHTED);
+                    TrySetPrevious();
+                    cachedGridTarget = gridRaycastTarget.boundGridTarget;
+
+                    if (cachedGridTarget != null)
+                    {
+                        cachedGridTarget.SetState(GridTargetState.HIGHLIGHTED);
+                    }
                 }
+            }
+            else
+            {
+                TrySetPreviousStateAndNull();
             }
         }
         else
         {
-            TrySetPrevious();
-            cachedGridTarget = null;
+            TrySetPreviousStateAndNull();
         }
+    }
+
+    private void TrySetPreviousStateAndNull ()
+    {
+        TrySetPrevious();
+        cachedGridTarget = null;
     }
 
     private void TrySetPrevious ()
