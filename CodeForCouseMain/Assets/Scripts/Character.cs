@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.AI;
 
 public class Character : MonoBehaviour
 {
+	public event Action OnArrivedAtDestination = delegate {};
+	
 	[SerializeField] private NavMeshAgent boundAgent;
 	[SerializeField] private Animator boundAnimator;
 	[SerializeField] private string startWalkingCharacterBool;
@@ -49,6 +52,7 @@ public class Character : MonoBehaviour
 		boundAnimator.SetBool(cachedIsWalkingID, true);
 		yield return playerAtDestinationCondition;
 		boundAnimator.SetBool(cachedIsWalkingID, false);
+		OnArrivedAtDestination();
 		Debug.Log("Arrived");
 	}
 

@@ -29,23 +29,8 @@ public class GridController : SerializedMonoBehaviour
 		MovePlayerToGrid(gridPosition.RowIndex, gridPosition.ColumnIndex);
 	}
 	
-	[Button]
 	private void MovePlayerToGrid (int rowIndex, int columIndex)
 	{
-		if (IsOutsideOfGridLength(rowIndex, columIndex) == true)
-		{
-			Debug.LogError("Selected grid is out of range");
-			return;
-		}
-		
-		GridTarget gridTarget = GridTargets2dArray[rowIndex, columIndex];
-
-		if (gridTarget.IsObstructed == true)
-		{
-			Debug.LogError("Selected grid is obstructed");
-			return;
-		}
-		
 		//TODO if 0,0 is obstructed on start it will be problem
 		GridTargets2dArray[player.CharacterGridPosition.RowIndex, player.CharacterGridPosition.ColumnIndex].IsObstructed = false;
 		player.SetCharacterDestination(GridTargets2dArray[rowIndex, columIndex].PlacedObjectParent.position, rowIndex, columIndex);
