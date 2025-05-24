@@ -6,15 +6,12 @@ using UnityEngine;
 public class GridController : SerializedMonoBehaviour
 {
 	[field: SerializeField, TableMatrix(DrawElementMethod = nameof(CustomGrid2dArrayDraw))] public GridTarget[,] GridTargets2dArray { get; private set; }
-	[SerializeField] private Transform player;
-	
-	
+	[SerializeField] private Character player;
 	[SerializeField] private bool canMoveNormal = true;
 	[SerializeField, ShowIf(nameof(canMoveNormal))] private int playerNormaDistanceToMoveNormal = 2;
 	[SerializeField] private bool canMoveDiagonal = true;
 	[SerializeField, ShowIf(nameof(canMoveDiagonal))] private int playerNormaDistanceToMoveDiagonal = 1;
-
-	private GridPosition playerGridPosition;
+	
 	private List<GridTarget> validGridTargets = new();
 
 	public void InitializeGridController (int gridRowCount, int gridColumnCount)
@@ -49,17 +46,9 @@ public class GridController : SerializedMonoBehaviour
 			return;
 		}
 		
-		if (playerGridPosition != null)
-		{
-			GridTargets2dArray[playerGridPosition.RowIndex, playerGridPosition.ColumnIndex].IsObstructed = false;
-		}
-		else
-		{
-			playerGridPosition = new GridPosition(rowIndex, columIndex);
-		}
-			
-		player.position = GridTargets2dArray[rowIndex, columIndex].PlacedObjectParent.position;
-		playerGridPosition.SetGridPosition(rowIndex, columIndex);
+		//TODO if 0,0 is obstructed on start it will be problem
+		GridTargets2dArray[player.CharacterGridPosition.RowIndex, player.CharacterGridPosition.ColumnIndex].IsObstructed = false;
+		player.SetCharacterDestination(GridTargets2dArray[rowIndex, columIndex].PlacedObjectParent.position, rowIndex, columIndex);
 		GridTargets2dArray[rowIndex, columIndex].IsObstructed = true;
 		RestoreDefaultLook();
 	}
@@ -83,6 +72,7 @@ public class GridController : SerializedMonoBehaviour
 			{
 				for (int i = 0; i < playerNormaDistanceToMoveNormal; i++)
 				{
+					GridPosition playerGridPosition = player.CharacterGridPosition;
 					int moveDistance = i + 1;
 					TryAddGridTarget(playerGridPosition.RowIndex + moveDistance, playerGridPosition.ColumnIndex);
 					TryAddGridTarget(playerGridPosition.RowIndex - moveDistance, playerGridPosition.ColumnIndex);
@@ -98,6 +88,7 @@ public class GridController : SerializedMonoBehaviour
 			{
 				for (int i = 0; i < playerNormaDistanceToMoveDiagonal; i++)
 				{
+					GridPosition playerGridPosition = player.CharacterGridPosition;
 					int moveDistance = i + 1;
 					TryAddGridTarget(playerGridPosition.RowIndex + moveDistance, playerGridPosition.ColumnIndex + moveDistance);
 					TryAddGridTarget(playerGridPosition.RowIndex + moveDistance, playerGridPosition.ColumnIndex - moveDistance);
