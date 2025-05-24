@@ -62,6 +62,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4165384830715684581}
+  - {fileID: 1913856331132316905}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8694485873010472438
@@ -76,10 +77,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04324c1b8fca2d747b719b9292f7c8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allPlayableCards:
+  - {fileID: 2826433321414440601, guid: b0ddf68bbdd64ea408c7f188ed89ff91, type: 3}
+  - {fileID: 2826433321414440601, guid: 69be6bb3711373842b35c67d0bc48bd5, type: 3}
+  - {fileID: 2826433321414440601, guid: b983655b664cf9d429334f13fa05700a, type: 3}
   startingDeck:
   - {fileID: 2826433321414440601, guid: b0ddf68bbdd64ea408c7f188ed89ff91, type: 3}
   - {fileID: 2826433321414440601, guid: 69be6bb3711373842b35c67d0bc48bd5, type: 3}
   - {fileID: 2826433321414440601, guid: b983655b664cf9d429334f13fa05700a, type: 3}
   - {fileID: 2826433321414440601, guid: b0ddf68bbdd64ea408c7f188ed89ff91, type: 3}
   - {fileID: 2826433321414440601, guid: 69be6bb3711373842b35c67d0bc48bd5, type: 3}
-  cardTransform: {fileID: 4165384830715684581}
+  isCardSelectionEventActive: 0
+  gridController: {fileID: 0}
+  numCardsToSelect: 3
+  cardParent: {fileID: 4165384830715684581}
+  cardSelectionScreenParent: {fileID: 1913856331132316905}
+--- !u!1 &8814367862979338358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1913856331132316905}
+  m_Layer: 0
+  m_Name: CardSelectionScreenParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1913856331132316905
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8814367862979338358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.46174863, y: -0, z: -0, w: 0.8870109}
+  m_LocalPosition: {x: 0, y: 4.95212, z: -3.066059}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6645689184725879618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: CardSO_Move2Diagonal
   m_EditorClassIdentifier: 
   canMoveNormal: 0
-  enemyNormalDistanceToMoveNormal: 1
+  cardNormalDistanceToMoveNormal: 1
   canMoveDiagonal: 1
-  enemyNormalDistanceToMoveDiagonal: 2
+  cardNormalDistanceToMoveDiagonal: 1
   canAttackNormal: 1
-  enemyNormalDistanceToAttackNormal: 1
+  cardNormalDistanceToAttackNormal: 1
   canAttackDiagonal: 0
-  enemyNormalDistanceToAttackDiagonal: 1
+  cardNormalDistanceToAttackDiagonal: 1
+  cardDescription: Move 2 Diagonally
   cost: 5

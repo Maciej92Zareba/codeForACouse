@@ -4,15 +4,24 @@ using UnityEngine.Events;
 public class TurnsManager : MonoBehaviour
 {
     [SerializeField] EnemiesManager enemiesManager;
+    [SerializeField] DeckManager deckManager;
 
     public bool isPlayerTurn = true;
     int currentEnemyIndex = 0;
+    public int roundsPlayed = 0;
 
     public UnityEvent<bool> OnTurnSideChange;
 
+    private void Start()
+    {
+        deckManager.GiveStartingCards();
+        PlayerTurn();
+    }
+
     public void PlayerTurn()
     {
-
+        deckManager.CardSelectionEvent();
+        deckManager.DrawCard();
     }
     
     public void EndPlayerTurn() 
@@ -51,5 +60,6 @@ public class TurnsManager : MonoBehaviour
     {
         isPlayerTurn = true;
         OnTurnSideChange.Invoke(isPlayerTurn);
+        roundsPlayed++;
     }
 }

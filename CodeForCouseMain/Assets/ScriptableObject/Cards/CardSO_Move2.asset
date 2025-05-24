@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: CardSO_Move2
   m_EditorClassIdentifier: 
   canMoveNormal: 1
-  enemyNormalDistanceToMoveNormal: 2
+  cardNormalDistanceToMoveNormal: 1
   canMoveDiagonal: 0
-  enemyNormalDistanceToMoveDiagonal: 1
+  cardNormalDistanceToMoveDiagonal: 1
   canAttackNormal: 1
-  enemyNormalDistanceToAttackNormal: 1
+  cardNormalDistanceToAttackNormal: 1
   canAttackDiagonal: 0
-  enemyNormalDistanceToAttackDiagonal: 1
+  cardNormalDistanceToAttackDiagonal: 1
+  cardDescription: Move 2
   cost: 5

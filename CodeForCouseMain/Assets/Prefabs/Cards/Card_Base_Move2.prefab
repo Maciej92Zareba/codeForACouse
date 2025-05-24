@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card_Base_Move2
       objectReference: {fileID: 0}
+    - target: {fileID: 4414346227168291601, guid: 09a4e26c12cfb9843bb792b0b15d8b9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8858370883472174238, guid: 09a4e26c12cfb9843bb792b0b15d8b9d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0

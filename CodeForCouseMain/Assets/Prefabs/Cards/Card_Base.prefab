@@ -293,11 +293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSO: {fileID: 11400000, guid: 9de08b918c2cf8e4d8f2d97d15b13125, type: 2}
-  targetsLayer:
-    serializedVersion: 2
-    m_Bits: 1
   cardRiseTime: 0.2
   yRiseAmount: 1
+  yRiseAmountDuringCardSelection: 0.5
   zRiseAmount: 0.4
 --- !u!65 &4025355005004090517
 BoxCollider:

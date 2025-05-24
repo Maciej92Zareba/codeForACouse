@@ -18,6 +18,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card_Base_Move1
       objectReference: {fileID: 0}
+    - target: {fileID: 4414346227168291601, guid: 09a4e26c12cfb9843bb792b0b15d8b9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5728893464471379419, guid: 09a4e26c12cfb9843bb792b0b15d8b9d, type: 3}
       propertyPath: cardSO
       value: 
