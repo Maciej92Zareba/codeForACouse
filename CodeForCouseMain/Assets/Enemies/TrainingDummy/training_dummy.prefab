@@ -106,6 +106,8 @@ GameObject:
   - component: {fileID: 5360683131785772904}
   - component: {fileID: 5615497917579445399}
   - component: {fileID: 8922822984664915197}
+  - component: {fileID: 2997408929257674255}
+  - component: {fileID: 5035034449245727000}
   m_Layer: 0
   m_Name: training_dummy
   m_TagString: Untagged
@@ -167,6 +169,43 @@ MonoBehaviour:
   OnMyTurnEnd:
     m_PersistentCalls:
       m_Calls: []
+--- !u!195 &2997408929257674255
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4697017240656324050}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &5035034449245727000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4697017240656324050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b264429e4f44b4eab831545d9fbb25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundAgent: {fileID: 2997408929257674255}
+  boundAnimator: {fileID: 5615497917579445399}
+  startWalkingCharacterBool: 
 --- !u!1 &6774080502169825540
 GameObject:
   m_ObjectHideFlags: 0
