@@ -500,6 +500,10 @@ PrefabInstance:
       propertyPath: m_CullingMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7644306990572431301, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00020892077
