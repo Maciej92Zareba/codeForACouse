@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
 	[SerializeField] private NavMeshAgent boundAgent;
 	[SerializeField] private Animator boundAnimator;
 	[SerializeField] private string startWalkingCharacterBool;
+	[SerializeField] private CharacterDataSO boundCharacterData;
 
 	private Coroutine cachedDestinationCheckCoroutine;
 	private WaitUntil playerAtDestinationCondition;

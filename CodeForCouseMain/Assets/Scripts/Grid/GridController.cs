@@ -7,10 +7,10 @@ public class GridController : SerializedMonoBehaviour
 {
 	[field: SerializeField, TableMatrix(DrawElementMethod = nameof(CustomGrid2dArrayDraw))] public GridTarget[,] GridTargets2dArray { get; private set; }
 	[SerializeField] private Character player;
-	[SerializeField] private bool canMoveNormal = true;
-	[SerializeField, ShowIf(nameof(canMoveNormal))] private int playerNormaDistanceToMoveNormal = 2;
-	[SerializeField] private bool canMoveDiagonal = true;
-	[SerializeField, ShowIf(nameof(canMoveDiagonal))] private int playerNormaDistanceToMoveDiagonal = 1;
+	// [SerializeField] private bool canMoveNormal = true;
+	// [SerializeField, ShowIf(nameof(canMoveNormal))] private int playerNormaDistanceToMoveNormal = 2;
+	// [SerializeField] private bool canMoveDiagonal = true;
+	// [SerializeField, ShowIf(nameof(canMoveDiagonal))] private int playerNormaDistanceToMoveDiagonal = 1;
 	
 	private List<GridTarget> validGridTargets = new();
 
@@ -24,22 +24,8 @@ public class GridController : SerializedMonoBehaviour
 		MovePlayerToGrid(0, 0);
 	}
 
-	public void MovePlayerToGrid (GridPosition gridPosition)
-	{
-		MovePlayerToGrid(gridPosition.RowIndex, gridPosition.ColumnIndex);
-	}
-	
-	private void MovePlayerToGrid (int rowIndex, int columIndex)
-	{
-		//TODO if 0,0 is obstructed on start it will be problem
-		GridTargets2dArray[player.CharacterGridPosition.RowIndex, player.CharacterGridPosition.ColumnIndex].IsObstructed = false;
-		player.SetCharacterDestination(GridTargets2dArray[rowIndex, columIndex].PlacedObjectParent.position, rowIndex, columIndex);
-		GridTargets2dArray[rowIndex, columIndex].IsObstructed = true;
-		RestoreDefaultLook();
-	}
-
 	[Button]
-	private void ShowValidGridDestination ()
+	public void UpdateValidGridsToMove (bool canMoveNormal, int normalDistanceToMove, bool canMoveDiagonal, int diagonalDistanceToMove)
 	{
 		RestoreDefaultLook();
 		validGridTargets.Clear();
@@ -55,7 +41,7 @@ public class GridController : SerializedMonoBehaviour
 		{
 			if (canMoveNormal == true)
 			{
-				for (int i = 0; i < playerNormaDistanceToMoveNormal; i++)
+				for (int i = 0; i < normalDistanceToMove; i++)
 				{
 					GridPosition playerGridPosition = player.CharacterGridPosition;
 					int moveDistance = i + 1;
@@ -71,7 +57,7 @@ public class GridController : SerializedMonoBehaviour
 		{
 			if (canMoveDiagonal == true)
 			{
-				for (int i = 0; i < playerNormaDistanceToMoveDiagonal; i++)
+				for (int i = 0; i < diagonalDistanceToMove; i++)
 				{
 					GridPosition playerGridPosition = player.CharacterGridPosition;
 					int moveDistance = i + 1;
@@ -95,6 +81,26 @@ public class GridController : SerializedMonoBehaviour
 				}
 			}
 		}
+	}
+
+	public void MovePlayerToGrid (GridPosition gridPosition)
+	{
+		MovePlayerToGrid(gridPosition.RowIndex, gridPosition.ColumnIndex);
+	}
+	
+	private void MovePlayerToGrid (int rowIndex, int columIndex)
+	{
+		//TODO if 0,0 is obstructed on start it will be problem
+		GridTargets2dArray[player.CharacterGridPosition.RowIndex, player.CharacterGridPosition.ColumnIndex].IsObstructed = false;
+		player.SetCharacterDestination(GridTargets2dArray[rowIndex, columIndex].PlacedObjectParent.position, rowIndex, columIndex);
+		GridTargets2dArray[rowIndex, columIndex].IsObstructed = true;
+		RestoreDefaultLook();
+	}
+
+	[Button]
+	private void ShowValidGridDestination ()
+	{
+		
 	}
 
 	[Button]

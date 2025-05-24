@@ -513,6 +513,7 @@ MonoBehaviour:
   boundAgent: {fileID: 2160742481619011351}
   boundAnimator: {fileID: 8370295565723528230}
   startWalkingCharacterBool: isWalking
+  boundCharacterData: {fileID: 11400000, guid: 47a92ba0559030042a5289e60ffa4c0e, type: 2}
 --- !u!4 &5287106968508975028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7790177421927552515, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
