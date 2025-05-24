@@ -7,11 +7,7 @@ public class GridController : SerializedMonoBehaviour
 {
 	[field: SerializeField, TableMatrix(DrawElementMethod = nameof(CustomGrid2dArrayDraw))] public GridTarget[,] GridTargets2dArray { get; private set; }
 	[SerializeField] private Character player;
-	// [SerializeField] private bool canMoveNormal = true;
-	// [SerializeField, ShowIf(nameof(canMoveNormal))] private int playerNormaDistanceToMoveNormal = 2;
-	// [SerializeField] private bool canMoveDiagonal = true;
-	// [SerializeField, ShowIf(nameof(canMoveDiagonal))] private int playerNormaDistanceToMoveDiagonal = 1;
-	
+
 	private List<GridTarget> validGridTargets = new();
 
 	public void InitializeGridController (int gridRowCount, int gridColumnCount)
