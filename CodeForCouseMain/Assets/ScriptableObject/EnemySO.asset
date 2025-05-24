@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2fa61dc26356a848b63a1ef12aa8345, type: 3}
   m_Name: EnemySO
   m_EditorClassIdentifier: 
-  healthPoitns: 1
+  healthPoints: 1
   canMoveNormal: 1
   enemyNormalDistanceToMoveNormal: 2
   canMoveDiagonal: 1
@@ -21,4 +21,3 @@ MonoBehaviour:
   enemyNormalDistanceToAttackNormal: 1
   canAttackDiagonal: 1
   enemyNormalDistanceToAttackDiagonal: 1
-  enemyNormalDistanceToAttack: 1
