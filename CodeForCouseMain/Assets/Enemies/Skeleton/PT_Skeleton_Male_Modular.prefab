@@ -298,6 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1929787907488324609}
   - component: {fileID: 5487591289728943739}
+  - component: {fileID: 2797287765355038353}
   m_Layer: 0
   m_Name: PT_Skeleton_Male_Modular
   m_TagString: Untagged
@@ -334,7 +335,7 @@ Animator:
   m_GameObject: {fileID: 1264433200921298619}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0c18218feab30a94397c5230415876c3, type: 3}
-  m_Controller: {fileID: 9100000, guid: eadcf975f5f7d7b48bf1217a9192369d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 31e6e147eb9a7a84b9f3e29e879a142c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -346,6 +347,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2797287765355038353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264433200921298619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8d54fe0cb6cd64482ad1bbd878530f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnMyTurnEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1334277327535426561
 GameObject:
   m_ObjectHideFlags: 0

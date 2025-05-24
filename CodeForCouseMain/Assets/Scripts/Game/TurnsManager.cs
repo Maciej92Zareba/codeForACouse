@@ -7,10 +7,10 @@ using UnityEngine.Events;
 
 public class TurnsManager : MonoBehaviour
 {
+    [SerializeField] EnemiesManager enemiesManager;
+
     public bool isPlayerTurn = true;
     int currentEnemyIndex = 0;
-
-    List<Enemy> enemies;
 
     public UnityEvent<bool> OnTurnSideChange;
 
@@ -23,8 +23,6 @@ public class TurnsManager : MonoBehaviour
     {
         isPlayerTurn = false;
         OnTurnSideChange.Invoke(isPlayerTurn);
-
-        enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None).ToList();
         EnemyTurn();
     }
 
@@ -36,10 +34,10 @@ public class TurnsManager : MonoBehaviour
 
     private void TryPerformEnemyActions()
     {
-        if (currentEnemyIndex <= enemies.Count)
+        if (currentEnemyIndex <= enemiesManager.enemies.Count)
         {
-            enemies[currentEnemyIndex].OnMyTurnEnd.AddListener(OnEnemyTurnEnded);
-            enemies[currentEnemyIndex].PerformTurn();
+            enemiesManager.enemies[currentEnemyIndex].OnMyTurnEnd.AddListener(OnEnemyTurnEnded);
+            enemiesManager.enemies[currentEnemyIndex].PerformTurn();
         }
         else
         {
@@ -49,7 +47,7 @@ public class TurnsManager : MonoBehaviour
 
     public void OnEnemyTurnEnded()
     {
-        enemies[currentEnemyIndex].OnMyTurnEnd.RemoveListener(OnEnemyTurnEnded);
+        enemiesManager.enemies[currentEnemyIndex].OnMyTurnEnd.RemoveListener(OnEnemyTurnEnded);
         currentEnemyIndex++;
         TryPerformEnemyActions();
     }
