@@ -99,6 +99,15 @@ public partial class @DefaultInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseClickRelease"",
+                    ""type"": ""Button"",
+                    ""id"": ""d16a2d9f-0c36-404e-ab09-878167d3b6b7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -110,6 +119,17 @@ public partial class @DefaultInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91a1fa48-6f80-4dba-a654-23e6e3ca77e8"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseClickRelease"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -127,6 +147,7 @@ public partial class @DefaultInputActions: IInputActionCollection2, IDisposable
         // DefaultActionsMap
         m_DefaultActionsMap = asset.FindActionMap("DefaultActionsMap", throwIfNotFound: true);
         m_DefaultActionsMap_MousePosition = m_DefaultActionsMap.FindAction("MousePosition", throwIfNotFound: true);
+        m_DefaultActionsMap_MouseClickRelease = m_DefaultActionsMap.FindAction("MouseClickRelease", throwIfNotFound: true);
     }
 
     ~@DefaultInputActions()
@@ -208,6 +229,7 @@ public partial class @DefaultInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_DefaultActionsMap;
     private List<IDefaultActionsMapActions> m_DefaultActionsMapActionsCallbackInterfaces = new List<IDefaultActionsMapActions>();
     private readonly InputAction m_DefaultActionsMap_MousePosition;
+    private readonly InputAction m_DefaultActionsMap_MouseClickRelease;
     /// <summary>
     /// Provides access to input actions defined in input action map "DefaultActionsMap".
     /// </summary>
@@ -223,6 +245,10 @@ public partial class @DefaultInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DefaultActionsMap/MousePosition".
         /// </summary>
         public InputAction @MousePosition => m_Wrapper.m_DefaultActionsMap_MousePosition;
+        /// <summary>
+        /// Provides access to the underlying input action "DefaultActionsMap/MouseClickRelease".
+        /// </summary>
+        public InputAction @MouseClickRelease => m_Wrapper.m_DefaultActionsMap_MouseClickRelease;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -252,6 +278,9 @@ public partial class @DefaultInputActions: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @MouseClickRelease.started += instance.OnMouseClickRelease;
+            @MouseClickRelease.performed += instance.OnMouseClickRelease;
+            @MouseClickRelease.canceled += instance.OnMouseClickRelease;
         }
 
         /// <summary>
@@ -266,6 +295,9 @@ public partial class @DefaultInputActions: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @MouseClickRelease.started -= instance.OnMouseClickRelease;
+            @MouseClickRelease.performed -= instance.OnMouseClickRelease;
+            @MouseClickRelease.canceled -= instance.OnMouseClickRelease;
         }
 
         /// <summary>
@@ -326,5 +358,12 @@ public partial class @DefaultInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMousePosition(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MouseClickRelease" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMouseClickRelease(InputAction.CallbackContext context);
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GridPointer : MonoBehaviour
 {
@@ -11,7 +12,27 @@ public class GridPointer : MonoBehaviour
     private void Awake ()
     {
         defaultInputActions = new();
+
+    }
+
+    private void OnEnable ()
+    {
         defaultInputActions.DefaultActionsMap.Enable();
+        defaultInputActions.DefaultActionsMap.MouseClickRelease.performed += HandleMouseButtonClicked;
+    }
+
+    private void OnDisable ()
+    {
+        defaultInputActions.DefaultActionsMap.Disable();
+        defaultInputActions.DefaultActionsMap.MouseClickRelease.performed -= HandleMouseButtonClicked;
+    }
+
+    private void HandleMouseButtonClicked (InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            Debug.Log("Button clicked");
+        }
     }
 
     private void OnDestroy ()
