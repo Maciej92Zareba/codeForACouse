@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7186489004860091639}
   - component: {fileID: 2110936316349823365}
   m_Layer: 0
-  m_Name: GridPointer
+  m_Name: PlayerInputController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,5 +48,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   mainCamera: {fileID: 0}
-  hitMaterial: {fileID: 2100000, guid: ba6e6a7911f001a47a4e10d5fc82e53a, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: 68035d9c5a99b244487a052cc7182fce, type: 2}

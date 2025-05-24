@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GridPointer : MonoBehaviour
+public class PlayerInputController : MonoBehaviour
 {
     [SerializeField] private LayerMask targetsLayer;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private GridController boundGridController;
 
     private DefaultInputActions defaultInputActions;
     private GridTarget cachedGridTarget;
@@ -12,26 +13,28 @@ public class GridPointer : MonoBehaviour
     private void Awake ()
     {
         defaultInputActions = new();
-
     }
 
     private void OnEnable ()
     {
         defaultInputActions.DefaultActionsMap.Enable();
-        defaultInputActions.DefaultActionsMap.MouseClickRelease.performed += HandleMouseButtonClicked;
+        defaultInputActions.DefaultActionsMap.MouseClickRelease.performed += HandleMouseButtonReleased;
     }
 
     private void OnDisable ()
     {
         defaultInputActions.DefaultActionsMap.Disable();
-        defaultInputActions.DefaultActionsMap.MouseClickRelease.performed -= HandleMouseButtonClicked;
+        defaultInputActions.DefaultActionsMap.MouseClickRelease.performed -= HandleMouseButtonReleased;
     }
 
-    private void HandleMouseButtonClicked (InputAction.CallbackContext context)
+    private void HandleMouseButtonReleased (InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Debug.Log("Button clicked");
+            if (cachedGridTarget != null && cachedGridTarget.CurrentState == GridTargetState.VALID)
+            {
+                boundGridController.MovePlayerToGrid(cachedGridTarget.BoundGridPosition);
+            }
         }
     }
 
@@ -63,7 +66,7 @@ public class GridPointer : MonoBehaviour
 
                     if (cachedGridTarget != null)
                     {
-                        cachedGridTarget.SetState(GridTargetState.HIGHLIGHTED);
+                        cachedGridTarget.SetHighlightState(true);
                     }
                 }
             }
@@ -88,7 +91,7 @@ public class GridPointer : MonoBehaviour
     {
         if (cachedGridTarget != null)
         {
-            cachedGridTarget.RestorePreviousState();
+            cachedGridTarget.SetHighlightState(false);
         }
     }
 }

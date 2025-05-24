@@ -27,6 +27,11 @@ public class GridController : SerializedMonoBehaviour
 		MovePlayerToGrid(0, 0);
 	}
 
+	public void MovePlayerToGrid (GridPosition gridPosition)
+	{
+		MovePlayerToGrid(gridPosition.RowIndex, gridPosition.ColumnIndex);
+	}
+	
 	[Button]
 	private void MovePlayerToGrid (int rowIndex, int columIndex)
 	{

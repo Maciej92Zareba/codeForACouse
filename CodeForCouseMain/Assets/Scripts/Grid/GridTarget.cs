@@ -1,32 +1,41 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GridTarget : MonoBehaviour
 {
 	[SerializeField] private MeshRenderer gridMesh;
 	[SerializeField] private GridTargetVisualiserSO boundGridTargetVisualiserSO;
-	[field: SerializeField] public GridPosition BoundGripPosition { get; set; }
+	[field: SerializeField] public GridPosition BoundGridPosition { get; set; }
 	[field: SerializeField] public bool IsObstructed { get; set; }
 	[field: SerializeField] public Transform PlacedObjectParent { get; private set; }
+	
+	[ShowInInspector, ReadOnly] public GridTargetState CurrentState { get; private set; } = GridTargetState.DEFAULT;
 
-	[ShowInInspector, ReadOnly] private GridTargetState currentState = GridTargetState.DEFAULT;
-	[ShowInInspector, ReadOnly] private GridTargetState previousState = GridTargetState.DEFAULT;
+	private bool isHighlighted;
 
-	public void SetState (GridTargetState newState)
+	public void SetHighlightState (bool isOn)
 	{
-		if (currentState != newState)
+		if (isHighlighted != isOn)
 		{
-			previousState = currentState;
-			currentState = newState;
-			SetLookBasedOnCurrentState();
+			isHighlighted = isOn;
+			
+			if (isHighlighted == true)
+			{
+				gridMesh.sharedMaterial = boundGridTargetVisualiserSO.highlightedColor;
+			}
+			else
+			{
+				SetLookBasedOnCurrentState();
+			}
 		}
 	}
-
-	public void RestorePreviousState ()
+	
+	public void SetState (GridTargetState newState)
 	{
-		if (currentState != previousState)
+		if (CurrentState != newState)
 		{
-			currentState = previousState;
+			CurrentState = newState;
 			SetLookBasedOnCurrentState();
 		}
 	}
@@ -35,13 +44,10 @@ public class GridTarget : MonoBehaviour
 	{
 		Material selectedMaterial;
 		
-		switch (currentState)
+		switch (CurrentState)
 		{
 			case GridTargetState.DEFAULT:
 				selectedMaterial = boundGridTargetVisualiserSO.defaultColor;
-				break;
-			case GridTargetState.HIGHLIGHTED:
-				selectedMaterial = boundGridTargetVisualiserSO.highlightedColor;
 				break;
 			case GridTargetState.VALID:
 				selectedMaterial = boundGridTargetVisualiserSO.validColor;
