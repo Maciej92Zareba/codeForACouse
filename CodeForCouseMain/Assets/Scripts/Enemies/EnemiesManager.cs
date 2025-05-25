@@ -18,10 +18,22 @@ public class EnemiesManager : MonoBehaviour
 		{
 			GameObject enemyToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 			Quaternion spawnRot = Quaternion.identity;
-			Instantiate(enemyToSpawn, gridTargets[i].PlacedObjectParent.position, spawnRot, enemiesParent.transform);
-			Enemy enemy = enemyToSpawn.GetComponent<Enemy>();
+			GameObject spawnedObject = Instantiate(enemyToSpawn, gridTargets[i].PlacedObjectParent.position, spawnRot, enemiesParent.transform);
+			Enemy enemy = spawnedObject.GetComponent<Enemy>();
 			enemy.InitializeBoardObject(gridTargets[i]);
 			enemies.Add(enemy);
+			enemy.OnEnemyDied += HandleEnemyDied;
+		}
+	}
+
+	private void HandleEnemyDied (Enemy enemy)
+	{
+		enemy.OnEnemyDied -= HandleEnemyDied;
+		enemies.Remove(enemy);
+
+		if (enemies.Count == 0)
+		{
+			Debug.Log("You won");
 		}
 	}
 

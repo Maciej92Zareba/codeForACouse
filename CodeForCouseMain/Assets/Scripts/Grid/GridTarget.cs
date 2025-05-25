@@ -10,8 +10,6 @@ public class GridTarget : MonoBehaviour
 	
 	[ShowInInspector, ReadOnly] public bool IsObstructed { get; set; }
 	[ShowInInspector, ReadOnly] public BaseBoardObject PlaceObjectOnGrid { get; set; }
-	
-	
 	[ShowInInspector, ReadOnly] public GridTargetState CurrentState { get; private set; } = GridTargetState.DEFAULT;
 
 	private bool isHighlighted;

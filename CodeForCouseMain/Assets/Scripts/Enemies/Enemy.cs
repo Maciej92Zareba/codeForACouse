@@ -4,7 +4,7 @@ using UnityEngine;
 public class Enemy : Character
 {
     public event Action OnFinishedTurn = delegate {};
-    public event Action OnEnemyDied = delegate {};
+    public event Action<Enemy> OnEnemyDied = delegate {};
 
     public void PerformTurn()
     {
@@ -19,6 +19,6 @@ public class Enemy : Character
         boundAnimator.SetBool(deadAnimation, true);
         ResetPlacedObject();
         boundAgent.enabled = false;
-        OnEnemyDied();
+        OnEnemyDied(this);
     }
 }
