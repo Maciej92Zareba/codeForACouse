@@ -21,6 +21,34 @@ PrefabInstance:
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -31,6 +59,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8383124558419344257, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
       propertyPath: m_Name
@@ -131,6 +163,9 @@ PrefabInstance:
       addedObject: {fileID: -852278038788185699}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -2144233530613065934}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 4614816412782602069}
     - targetCorrespondingSourceObject: {fileID: -6577237425059042219, guid: e4c88fe2e81511d4dae9da620550ecf9, type: 3}
       insertIndex: -1
@@ -202,15 +237,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8d54fe0cb6cd64482ad1bbd878530f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundAgent: {fileID: -852278038788185699}
-  boundAnimator: {fileID: 8621575989863660144}
-  startWalkingCharacterBool: isWalking
+  boundAgent: {fileID: 0}
+  boundAnimator: {fileID: 0}
+  startWalkingCharacterBool: 
   characterStartHealthPoints: 1
-  deadAnimation: isDead
-  <BoundActionData>k__BackingField: {fileID: 11400000, guid: c83ab12b264042d4e87825937d2cb10a, type: 2}
-  onHitAudioClip: {fileID: 8300000, guid: cef4e645bca68b0479d79c8a2c95eb9a, type: 3}
-  onDeathAudioClip: {fileID: 8300000, guid: cef4e645bca68b0479d79c8a2c95eb9a, type: 3}
-  boundAudioSource: {fileID: 4614816412782602069}
+  <BoundActionData>k__BackingField: {fileID: 0}
+  onHitAudioClip: {fileID: 0}
+  onDeathAudioClip: {fileID: 0}
+  boundAudioSource: {fileID: 0}
 --- !u!195 &-852278038788185699
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -223,16 +257,36 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 53
-  m_AngularSpeed: 300
+  avoidancePriority: 50
+  m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 3.8
+  m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-2144233530613065934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3661650219869078337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b264429e4f44b4eab831545d9fbb25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundAgent: {fileID: -852278038788185699}
+  boundAnimator: {fileID: 8621575989863660144}
+  startWalkingCharacterBool: isWalking
+  characterStartHealthPoints: 1
+  <BoundActionData>k__BackingField: {fileID: 11400000, guid: c83ab12b264042d4e87825937d2cb10a, type: 2}
+  onHitAudioClip: {fileID: 0}
+  onDeathAudioClip: {fileID: 8300000, guid: cef4e645bca68b0479d79c8a2c95eb9a, type: 3}
+  boundAudioSource: {fileID: 4614816412782602069}
 --- !u!82 &4614816412782602069
 AudioSource:
   m_ObjectHideFlags: 0
@@ -245,7 +299,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
