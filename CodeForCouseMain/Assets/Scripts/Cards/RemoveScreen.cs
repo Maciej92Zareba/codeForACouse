@@ -3,22 +3,22 @@ using UnityEngine;
 
 public class RemoveScreen : MonoBehaviour
 {
-    [SerializeField] DeckManager deckManager;
-    [SerializeField] GameObject cardUIElement;
+    //[SerializeField] DeckManager deckManager;
+    //[SerializeField] GameObject cardUIElement;
 
-    List<Card> deck = new List<Card>();
+    //List<Card> deck = new List<Card>();
 
-    private void OnEnable()
-    {
-        foreach (Card card in deck)
-        {
-            Destroy(card);
-        }
+    //private void OnEnable()
+    //{
+    //    foreach (Card card in deck)
+    //    {
+    //        Destroy(card);
+    //    }
         
-        deck = deckManager.deck;
-        foreach (Card card in deck)
-        {
-            Instantiate(cardUIElement, this.transform);
-        }
-    }
+    //    deck = deckManager.deck;
+    //    foreach (Card card in deck)
+    //    {
+    //        Instantiate(cardUIElement, this.transform);
+    //    }
+    //}
 }
