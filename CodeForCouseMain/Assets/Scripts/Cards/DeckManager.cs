@@ -14,14 +14,12 @@ public class DeckManager : MonoBehaviour
     [SerializeField] List<Card> allPlayableCards;
     [SerializeField] List<Card> startingDeck;
     [HideInInspector] public List<Card> deck;
-    List<Card> drawPile;
+    [HideInInspector] public List<Card> drawPile;
 
     [Header("Hand Settings")]
     [SerializeField] GameObject activeCard;
     [SerializeField] TMP_Text handText;
     Card currentCardInHand;
-    public UnityEvent cardDrawn;    
-    public UnityEvent cardPlayed;    
     
     [Header("Card Selection Event Settings")]
     [HideInInspector] public bool isCardSelectionEventActive = false;
@@ -30,13 +28,19 @@ public class DeckManager : MonoBehaviour
     [SerializeField] TMP_Text[] cardCostTextsForSelectionEvent;
     int numCardsToSelect = 3;
     List<Card> selectionEventCards;
-    public UnityEvent cardSelectionOver;
 
     [Header("Card Removal Event SEttings")]
     [SerializeField] TMP_Text[] cardTextsForRemovalEvent;
     [SerializeField] GameObject[] cardGOForRemovalEvent;
     [SerializeField] TMP_Text removalCostText;
     [SerializeField] int removalCost = 5;
+
+    [Header("Events")]
+    public UnityEvent cardDrawn;    
+    public UnityEvent cardPlayed;    
+    public UnityEvent cardSelectionOver;
+    public UnityEvent deckChanged;
+    public UnityEvent drawPileChanged;
 
     private void Awake()
     {
@@ -49,12 +53,14 @@ public class DeckManager : MonoBehaviour
         if (drawPile.Count == 0)
         {
             drawPile = new List<Card>(deck); // add reshuffle sound
+            drawPileChanged.Invoke();
         }
         
         cardSelectionOver.RemoveListener(DrawCard);
         int cardToDrawIndex = Random.Range(0, drawPile.Count);
         Card cardToDraw = drawPile[cardToDrawIndex];
         drawPile.Remove(cardToDraw);
+        drawPileChanged.Invoke();
 
         currentCardInHand = cardToDraw;
 
@@ -82,6 +88,7 @@ public class DeckManager : MonoBehaviour
     {
         deck = new List<Card>(startingDeck);
         drawPile = new List<Card>(deck);
+        drawPileChanged.Invoke();
     }
 
     public void GainCard(Card cardToAdd)
@@ -158,8 +165,15 @@ public class DeckManager : MonoBehaviour
     {        
         if (removalCost > economyManager.currencyOwned) { return; }
         
-        deck.RemoveAt(index);
+        Card cardToRemove = deck[index];
+        deck.Remove(cardToRemove);
         economyManager.AddCurrency(-removalCost);
         CardRemovalEvent();
+
+        if (drawPile.Contains(cardToRemove))
+        {
+            drawPile.Remove(cardToRemove);
+            drawPileChanged.Invoke();
+        }
     }
 }
