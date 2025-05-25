@@ -401,7 +401,7 @@ MonoBehaviour:
   boundAgent: {fileID: -156506176370600204}
   boundAnimator: {fileID: 5487591289728943739}
   startWalkingCharacterBool: isWalking
-  boundCharacterData: {fileID: 11400000, guid: 47a92ba0559030042a5289e60ffa4c0e, type: 2}
+  boundCharacterData: {fileID: 11400000, guid: 6d5f3e57852bd6d4f97afe99633b183b, type: 2}
 --- !u!1 &1334277327535426561
 GameObject:
   m_ObjectHideFlags: 0
