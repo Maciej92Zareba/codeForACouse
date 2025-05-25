@@ -18,42 +18,21 @@ public class GridController : SerializedMonoBehaviour
 
 	private void UpdateValidGridsToMove (MovementData movementData, GridPosition caller)
 	{
-		//TODO add ignore obstructed
-		UpdateValidGridsToMove(caller, movementData.CanMoveNormal, movementData.DistanceToMoveNormal, 
-							   movementData.CanMoveDiagonal, movementData.DistanceToMoveDiagonal);
-		
-		for (int i = 0; i < validGridTargets.Count; i++)
-		{
-			validGridTargets[i].SetState(GridTargetState.VALID_MOVEMENT);
-		}
-	}
-	
-	private void UpdateValidGridsToAttack (AttackData attackData, GridPosition caller)
-	{
-		//TODO add dont ignore obstructed
-		UpdateValidGridsToMove(caller, attackData.CanAttackNormal, attackData.NormalDistanceToAttack, 
-							   attackData.CanAttackDiagonal, attackData.DiagonalDistanceAttack);
-		
-		for (int i = 0; i < validGridTargets.Count; i++)
-		{
-			validGridTargets[i].SetState(GridTargetState.VALID_ATTACK);
-		}
-	}
-	
-	[Button]
-	public void UpdateValidGridsToMove (GridPosition caller, bool canNormal, int normalDistance, bool canDiagonal, int diagonalDistance)
-	{
 		RestoreDefaultLook();
 		validGridTargets.Clear();
 		AddNormalMovementTargets();
 		AddDiagonalMovementTargets();
 		
+		for (int i = 0; i < validGridTargets.Count; i++)
+		{
+			validGridTargets[i].SetState(GridTargetState.VALID_MOVEMENT);
+		}
 
 		void AddNormalMovementTargets ()
 		{
-			if (canNormal == true)
+			if (movementData.CanMoveNormal == true)
 			{
-				for (int i = 0; i < normalDistance; i++)
+				for (int i = 0; i < movementData.DistanceToMoveNormal; i++)
 				{
 					int moveDistance = i + 1;
 					TryAddGridTarget(caller.RowIndex + moveDistance, caller.ColumnIndex);
@@ -66,9 +45,9 @@ public class GridController : SerializedMonoBehaviour
 
 		void AddDiagonalMovementTargets ()
 		{
-			if (canDiagonal == true)
+			if (movementData.CanMoveDiagonal == true)
 			{
-				for (int i = 0; i < diagonalDistance; i++)
+				for (int i = 0; i < movementData.DistanceToMoveDiagonal; i++)
 				{
 					int moveDistance = i + 1;
 					TryAddGridTarget(caller.RowIndex + moveDistance, caller.ColumnIndex + moveDistance);
@@ -91,7 +70,69 @@ public class GridController : SerializedMonoBehaviour
 				}
 			}
 		}
+		
+		for (int i = 0; i < validGridTargets.Count; i++)
+		{
+			validGridTargets[i].SetState(GridTargetState.VALID_MOVEMENT);
+		}
 	}
+	
+	private void UpdateValidGridsToAttack (AttackData attackData, GridPosition caller)
+	{
+		RestoreDefaultLook();
+		validGridTargets.Clear();
+		AddNormalAttack();
+		AddDiagonalMovementTargets();
+		
+		for (int i = 0; i < validGridTargets.Count; i++)
+		{
+			validGridTargets[i].SetState(GridTargetState.VALID_ATTACK);
+		}
+		
+		void AddNormalAttack ()
+		{
+			if (attackData.CanAttackNormal == true)
+			{
+				for (int i = 0; i < attackData.NormalDistanceToAttack; i++)
+				{
+					int attackDistance = i + 1;
+					TryAddGridTarget(caller.RowIndex + attackDistance, caller.ColumnIndex);
+					TryAddGridTarget(caller.RowIndex - attackDistance, caller.ColumnIndex);
+					TryAddGridTarget(caller.RowIndex, caller.ColumnIndex + attackDistance);
+					TryAddGridTarget(caller.RowIndex, caller.ColumnIndex - attackDistance);
+				}
+			}
+		}
+
+		void AddDiagonalMovementTargets ()
+		{
+			if (attackData.CanAttackDiagonal == true)
+			{
+				for (int i = 0; i < attackData.DiagonalDistanceAttack; i++)
+				{
+					int attackDistance = i + 1;
+					TryAddGridTarget(caller.RowIndex + attackDistance, caller.ColumnIndex + attackDistance);
+					TryAddGridTarget(caller.RowIndex + attackDistance, caller.ColumnIndex - attackDistance);
+					TryAddGridTarget(caller.RowIndex - attackDistance, caller.ColumnIndex + attackDistance);
+					TryAddGridTarget(caller.RowIndex - attackDistance, caller.ColumnIndex - attackDistance);
+				}
+			}
+		}
+		
+		void TryAddGridTarget (int row, int column)
+		{
+			if (IsOutsideOfGridLength(row, column) == false)
+			{
+				GridTarget target = GridTargets2dArray[row, column];
+
+				if (validGridTargets.Contains(target) == false)
+				{
+					validGridTargets.Add(target);
+				}
+			}
+		}
+	}
+	
 
 	private void Start ()
 	{

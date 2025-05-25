@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2fa61dc26356a848b63a1ef12aa8345, type: 3}
   m_Name: Move_Diagonal_2_Attack_1
   m_EditorClassIdentifier: 
-  healthPoints: 1
   movementData:
     <CanMoveNormal>k__BackingField: 1
     <DistanceToMoveNormal>k__BackingField: 2
@@ -23,3 +22,4 @@ MonoBehaviour:
     <NormalDistanceToAttack>k__BackingField: 1
     <CanAttackDiagonal>k__BackingField: 1
     <DiagonalDistanceAttack>k__BackingField: 1
+    <AttackAnimationName>k__BackingField: Diagonal

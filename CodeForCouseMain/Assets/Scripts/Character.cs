@@ -12,7 +12,9 @@ public class Character : BaseBoardObject
 	[SerializeField] protected NavMeshAgent boundAgent;
 	[SerializeField] protected Animator boundAnimator;
 	[SerializeField] protected string startWalkingCharacterBool;
+	[SerializeField] protected int characterStartHealthPoints = 1;
 	[field: SerializeField] public ActionDataSO BoundActionData { get; protected set; }
+	
 	[SerializeField] protected AudioClip onHitAudioClip;
 	[SerializeField] protected AudioClip onDeathAudioClip;
 	[SerializeField] protected AudioSource boundAudioSource;
@@ -21,20 +23,27 @@ public class Character : BaseBoardObject
 	private WaitUntil playerAtDestinationCondition;
 	private int cachedIsWalkingID;
 	private int currentHealth;
+	
+	private BaseBoardObject cachedAttackedTarget; 
 
-	[ShowInInspector, ReadOnly] public GridPosition CharacterGridPosition { get; private set; } = new(0, 0);
+	//[ShowInInspector, ReadOnly] public GridPosition CharacterGridPosition { get; private set; } = new(0, 0);
 
 	private const float VELOCITY_THRESHOLD = 0.01f;
 
-	public void SetCharacterDestination (Vector3 target, int row, int column)
+	public void SetCharacterDestination (GridTarget gridTarget)
 	{
-		CharacterGridPosition.SetGridPosition(row, column);
-		SetAgentDestination(target);
+		//Reset previous
+		ResetPlacedObject();
+		
+		PlacedOnGrid = gridTarget;
+		PlacedOnGrid.IsObstructed = true;
+		SetAgentDestination(PlacedOnGrid.PlacedObjectParent.position);
 	}
 
-	public void Attack (Vector3 attackedPosition)
+	public void Attack (GridTarget attackedGridTarget)
 	{
-		transform.LookAt(attackedPosition);
+		transform.LookAt(attackedGridTarget.PlacedObjectParent.position, Vector3.up);
+		cachedAttackedTarget = attackedGridTarget.PlaceObjectOnGrid;
 		boundAnimator.SetTrigger(BoundActionData.attackData.AttackAnimationName);
 	}
 
@@ -55,6 +64,7 @@ public class Character : BaseBoardObject
 	{
 		playerAtDestinationCondition = new WaitUntil(IsPlayerAtDestination);
 		cachedIsWalkingID = Animator.StringToHash(startWalkingCharacterBool);
+		currentHealth = characterStartHealthPoints;
 	}
 
 	private IEnumerator PlayerArrivedAtDestination ()
@@ -73,23 +83,28 @@ public class Character : BaseBoardObject
 
 	private void OnAttackAnimationFinished ()
 	{
+		if (cachedAttackedTarget != null)
+		{
+			cachedAttackedTarget.ReactOnGettingAttacked(BoundActionData.attackData.AttackDamage);
+		}
+		
 		OnAttackFinished();
 	}
 
-	protected override void ReactOnGettingAttacked (int damage)
+	public override void ReactOnGettingAttacked (int damage)
 	{
 		currentHealth -= damage;
 
 		if (currentHealth <= 0)
 		{
-			boundAudioSource.clip = onDeathAudioClip;
-			//Die
+			//boundAudioSource.clip = onDeathAudioClip;
+			OnDie();
 		}
 		else
 		{
-			boundAudioSource.clip = onHitAudioClip;
+			//boundAudioSource.clip = onHitAudioClip;
 		}
 		
-		boundAudioSource.Play();
+		//boundAudioSource.Play();
 	}
 }
