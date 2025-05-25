@@ -362,6 +362,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8d54fe0cb6cd64482ad1bbd878530f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boundAgent: {fileID: 0}
+  boundAnimator: {fileID: 0}
+  startWalkingCharacterBool: 
+  characterStartHealthPoints: 1
+  <BoundActionData>k__BackingField: {fileID: 0}
+  onHitAudioClip: {fileID: 0}
+  onDeathAudioClip: {fileID: 0}
+  boundAudioSource: {fileID: 0}
 --- !u!195 &-156506176370600204
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -399,6 +407,7 @@ MonoBehaviour:
   boundAgent: {fileID: -156506176370600204}
   boundAnimator: {fileID: 5487591289728943739}
   startWalkingCharacterBool: isWalking
+  characterStartHealthPoints: 1
   <BoundActionData>k__BackingField: {fileID: 11400000, guid: 6d5f3e57852bd6d4f97afe99633b183b, type: 2}
   onHitAudioClip: {fileID: 8300000, guid: 76adbc935518fe74e96758c524aafcee, type: 3}
   onDeathAudioClip: {fileID: 8300000, guid: 331757fed3a4ceb4091565c2f7fb8d0b, type: 3}
@@ -415,7 +424,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
