@@ -21,4 +21,4 @@ MonoBehaviour:
   canAttackDiagonal: 0
   cardNormalDistanceToAttackDiagonal: 1
   cardDescription: Move 2
-  cost: 5
+  cost: 7

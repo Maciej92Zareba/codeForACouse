@@ -15,9 +15,15 @@ public class RaiseHand : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] RectTransform rectTransform;
 
     private void Awake()
-    {
+    {     
         defaultPosY = rectTransform.anchoredPosition.y;
         defaultRotX = rectTransform.rotation.eulerAngles.x;
+    }
+
+    private void OnEnable()
+    {
+        rectTransform.anchoredPosition = new Vector2(0, defaultPosY);
+        rectTransform.rotation = Quaternion.Euler(defaultRotX, 0, 0);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

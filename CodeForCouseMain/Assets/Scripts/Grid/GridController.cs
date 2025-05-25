@@ -17,6 +17,7 @@ public class GridController : SerializedMonoBehaviour
 	[Button]
 	public void UpdateValidGridsToMove (GridPosition caller, bool canMoveNormal, int normalDistanceToMove, bool canMoveDiagonal, int diagonalDistanceToMove)
 	{
+		Debug.Log("Tried to move character");
 		RestoreDefaultLook();
 		validGridTargets.Clear();
 		AddNormalMovementTargets();

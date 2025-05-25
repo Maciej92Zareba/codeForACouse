@@ -5,18 +5,18 @@ using UnityEngine;
 public class CardSO : ScriptableObject
 {
     [Header("Movement Settings")]
-    [SerializeField] private bool canMoveNormal = true;
-    [SerializeField, ShowIf(nameof(canMoveNormal))] private int cardNormalDistanceToMoveNormal = 1;
-    [SerializeField] private bool canMoveDiagonal = true;
-    [SerializeField, ShowIf(nameof(canMoveDiagonal))] private int cardNormalDistanceToMoveDiagonal = 1;
+    [SerializeField] public bool canMoveNormal = true;
+    [SerializeField, ShowIf(nameof(canMoveNormal))] public int cardNormalDistanceToMoveNormal = 1;
+    [SerializeField] public bool canMoveDiagonal = true;
+    [SerializeField, ShowIf(nameof(canMoveDiagonal))] public int cardNormalDistanceToMoveDiagonal = 1;
 
     [Header("Attack Settings")]
-    [SerializeField] private bool canAttackNormal = true;
-    [SerializeField, ShowIf(nameof(canAttackNormal))] private int cardNormalDistanceToAttackNormal = 1;
-    [SerializeField] private bool canAttackDiagonal = true;
-    [SerializeField, ShowIf(nameof(canAttackDiagonal))] private int cardNormalDistanceToAttackDiagonal = 1;
+    [SerializeField] public bool canAttackNormal = true;
+    [SerializeField, ShowIf(nameof(canAttackNormal))] public int cardNormalDistanceToAttackNormal = 1;
+    [SerializeField] public bool canAttackDiagonal = true;
+    [SerializeField, ShowIf(nameof(canAttackDiagonal))] public int cardNormalDistanceToAttackDiagonal = 1;
 
     [SerializeField] public string cardDescription = "Default Card Text";
 
-    [SerializeField] private int cost = 5;
+    [SerializeField] public int cost = 5;
 }
