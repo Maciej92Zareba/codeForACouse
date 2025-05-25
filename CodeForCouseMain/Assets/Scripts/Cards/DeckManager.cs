@@ -7,14 +7,14 @@ using UnityEngine.Events;
 
 public class DeckManager : MonoBehaviour
 {
-    [SerializeField] List<Card> allPlayableCards;
-    [SerializeField] List<Card> startingDeck;
-    public List<Card> deck;
-    List<Card> drawPile;
-
     [SerializeField] GridController gridController;
     [SerializeField] Character playerCharacter;
     [SerializeField] EconomyManager economyManager;
+
+    [SerializeField] List<Card> allPlayableCards;
+    [SerializeField] List<Card> startingDeck;
+    [HideInInspector] public List<Card> deck;
+    List<Card> drawPile;
 
     [Header("Hand Settings")]
     [SerializeField] GameObject activeCard;
@@ -36,12 +36,11 @@ public class DeckManager : MonoBehaviour
     [SerializeField] TMP_Text[] cardTextsForRemovalEvent;
     [SerializeField] GameObject[] cardGOForRemovalEvent;
     [SerializeField] TMP_Text removalCostText;
-    [SerializeField] string removalCostTextString = "Removal Cost: ";
     [SerializeField] int removalCost = 5;
 
     private void Awake()
     {
-        removalCostText.text = removalCostTextString + removalCost.ToString();
+        removalCostText.text = removalCostText.text + removalCost.ToString();
     }
 
     [Button]
@@ -89,7 +88,6 @@ public class DeckManager : MonoBehaviour
     {
         deck.Add(cardToAdd);
     }
-
 
     public void CardSelectionEvent()
     {
