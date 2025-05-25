@@ -408,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7115641273992861736, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
       propertyPath: m_LocalPosition.x
@@ -516,6 +516,7 @@ MonoBehaviour:
   boundAgent: {fileID: 2160742481619011351}
   boundAnimator: {fileID: 8370295565723528230}
   startWalkingCharacterBool: isWalking
+  characterStartHealthPoints: 1
   <BoundActionData>k__BackingField: {fileID: 0}
   onHitAudioClip: {fileID: 0}
   onDeathAudioClip: {fileID: 0}
