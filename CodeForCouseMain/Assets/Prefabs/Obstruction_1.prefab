@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4238906624603109220}
   - component: {fileID: 675331374908451602}
   m_Layer: 3
-  m_Name: Obstruction
+  m_Name: Obstruction_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

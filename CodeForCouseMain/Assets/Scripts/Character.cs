@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
 	[SerializeField] private NavMeshAgent boundAgent;
 	[SerializeField] private Animator boundAnimator;
 	[SerializeField] private string startWalkingCharacterBool;
-	[SerializeField] private CharacterDataSO boundCharacterData;
+	[SerializeField] public CharacterDataSO boundCharacterData;
 
 	private Coroutine cachedDestinationCheckCoroutine;
 	private WaitUntil playerAtDestinationCondition;
@@ -49,12 +49,10 @@ public class Character : MonoBehaviour
 	private IEnumerator PlayerArrivedAtDestination ()
 	{
 		yield return null;
-		Debug.Log("Started moving");
 		boundAnimator.SetBool(cachedIsWalkingID, true);
 		yield return playerAtDestinationCondition;
 		boundAnimator.SetBool(cachedIsWalkingID, false);
 		OnArrivedAtDestination();
-		Debug.Log("Arrived");
 	}
 
 	private bool IsPlayerAtDestination ()

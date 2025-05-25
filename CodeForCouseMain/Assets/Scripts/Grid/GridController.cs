@@ -9,30 +9,49 @@ public class GridController : SerializedMonoBehaviour
 
 	private List<GridTarget> validGridTargets = new();
 
+	#if UNITY_EDITOR
 	public void InitializeGridController (int gridRowCount, int gridColumnCount)
 	{
 		GridTargets2dArray = new GridTarget[gridRowCount, gridColumnCount];
 	}
+#endif
 
-	[Button]
-	public void UpdateValidGridsToMove (GridPosition caller, bool canMoveNormal, int normalDistanceToMove, bool canMoveDiagonal, int diagonalDistanceToMove)
+	private void UpdateValidGridsToMove (MovementData movementData, GridPosition caller)
 	{
-		Debug.Log("Tried to move character");
+		UpdateValidGridsToMove(caller, movementData.CanMoveNormal, movementData.DistanceToMoveNormal, 
+							   movementData.CanMoveDiagonal, movementData.DistanceToMoveDiagonal);
+		
+		for (int i = 0; i < validGridTargets.Count; i++)
+		{
+			validGridTargets[i].SetState(GridTargetState.VALID_MOVEMENT);
+		}
+	}
+	
+	private void UpdateValidGridsToAttack (AttackData attackData, GridPosition caller)
+	{
+		UpdateValidGridsToMove(caller, attackData.CanAttackNormal, attackData.NormalDistanceToAttack, 
+							   attackData.CanAttackDiagonal, attackData.DiagonalDistanceAttack);
+		
+		for (int i = 0; i < validGridTargets.Count; i++)
+		{
+			validGridTargets[i].SetState(GridTargetState.VALID_ATTACK);
+		}
+	}
+	
+	[Button]
+	public void UpdateValidGridsToMove (GridPosition caller, bool canNormal, int normalDistance, bool canDiagonal, int diagonalDistance)
+	{
 		RestoreDefaultLook();
 		validGridTargets.Clear();
 		AddNormalMovementTargets();
 		AddDiagonalMovementTargets();
-
-		for (int i = 0; i < validGridTargets.Count; i++)
-		{
-			validGridTargets[i].SetState(GridTargetState.VALID);
-		}
+		
 
 		void AddNormalMovementTargets ()
 		{
-			if (canMoveNormal == true)
+			if (canNormal == true)
 			{
-				for (int i = 0; i < normalDistanceToMove; i++)
+				for (int i = 0; i < normalDistance; i++)
 				{
 					int moveDistance = i + 1;
 					TryAddGridTarget(caller.RowIndex + moveDistance, caller.ColumnIndex);
@@ -45,9 +64,9 @@ public class GridController : SerializedMonoBehaviour
 
 		void AddDiagonalMovementTargets ()
 		{
-			if (canMoveDiagonal == true)
+			if (canDiagonal == true)
 			{
-				for (int i = 0; i < diagonalDistanceToMove; i++)
+				for (int i = 0; i < diagonalDistance; i++)
 				{
 					int moveDistance = i + 1;
 					TryAddGridTarget(caller.RowIndex + moveDistance, caller.ColumnIndex + moveDistance);
@@ -72,21 +91,20 @@ public class GridController : SerializedMonoBehaviour
 		}
 	}
 
-	// public void MovePlayerToGrid (GridPosition gridPosition)
-	// {
-	// 	MovePlayerToGrid(gridPosition.RowIndex, gridPosition.ColumnIndex);
-	// }
-	//
-	// private void MovePlayerToGrid (int rowIndex, int columIndex)
-	// {
-	// 	//TODO if 0,0 is obstructed on start it will be problem
-	// 	GridTargets2dArray[player.CharacterGridPosition.RowIndex, player.CharacterGridPosition.ColumnIndex].IsObstructed = false;
-	// 	player.SetCharacterDestination(GridTargets2dArray[rowIndex, columIndex].PlacedObjectParent.position, rowIndex, columIndex);
-	// 	GridTargets2dArray[rowIndex, columIndex].IsObstructed = true;
-	// 	RestoreDefaultLook();
-	// }
+	private void Start ()
+	{
+		GlobalActions.Instance.RestoreDefaultBoardLook += RestoreDefaultLook;
+		GlobalActions.Instance.UpdateValidGridsToMove += UpdateValidGridsToMove;
+		GlobalActions.Instance.UpdateValidGridsToAttack += UpdateValidGridsToAttack;
+	}
 
-	[Button]
+	private void OnDestroy ()
+	{
+		GlobalActions.Instance.RestoreDefaultBoardLook -= RestoreDefaultLook;
+		GlobalActions.Instance.UpdateValidGridsToMove -= UpdateValidGridsToMove;
+		GlobalActions.Instance.UpdateValidGridsToAttack -= UpdateValidGridsToAttack;
+	}
+
 	private void RestoreDefaultLook ()
 	{
 		for (int i = 0; i < GridTargets2dArray.GetLength(0); i++)
@@ -107,7 +125,7 @@ public class GridController : SerializedMonoBehaviour
 	{
 		EditorGUIUtility.labelWidth = 50.0f;
 		string label = value != null ? value.name : "Null";
-		value = (GridTarget)EditorGUI.ObjectField(rect, label, value, typeof(GridTarget));
+		value = (GridTarget)EditorGUI.ObjectField(rect, label, value, typeof(GridTarget), true);
 		return value;
 	}
 }

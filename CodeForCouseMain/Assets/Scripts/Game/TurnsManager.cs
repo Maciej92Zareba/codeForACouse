@@ -1,6 +1,6 @@
+using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class TurnsManager : MonoBehaviour
 {
@@ -14,12 +14,17 @@ public class TurnsManager : MonoBehaviour
 
     [SerializeField] int currecnyToAddAfterTurnEnd = 10;
 
-    public UnityEvent<bool> OnTurnSideChange;
-
     private void Start()
     {
         deckManager.GiveStartingCards();
         PlayerTurn();
+        StartCoroutine(DelayedCall());
+    }
+
+    private IEnumerator DelayedCall ()
+    {
+        yield return null;
+        GlobalActions.Instance.NotifyOnOnTurnChange(isPlayerTurn);
     }
 
     public void PlayerTurn()
@@ -31,7 +36,7 @@ public class TurnsManager : MonoBehaviour
     public void EndPlayerTurn() 
     {
         isPlayerTurn = false;
-        OnTurnSideChange.Invoke(isPlayerTurn);
+        GlobalActions.Instance.NotifyOnOnTurnChange(isPlayerTurn);
         economyManager.AddCurrency(currecnyToAddAfterTurnEnd);
         EnemyTurn();
     }
@@ -67,7 +72,7 @@ public class TurnsManager : MonoBehaviour
     private void EndEnemiesTurn()
     {
         isPlayerTurn = true;
-        OnTurnSideChange.Invoke(isPlayerTurn);
+        GlobalActions.Instance.NotifyOnOnTurnChange(isPlayerTurn);
         roundsPlayed++;
         PlayerTurn();
     }

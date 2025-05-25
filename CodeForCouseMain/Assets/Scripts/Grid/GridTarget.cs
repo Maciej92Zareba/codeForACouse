@@ -1,6 +1,5 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GridTarget : MonoBehaviour
 {
@@ -49,8 +48,11 @@ public class GridTarget : MonoBehaviour
 			case GridTargetState.DEFAULT:
 				selectedMaterial = boundGridTargetVisualiserSO.defaultColor;
 				break;
-			case GridTargetState.VALID:
-				selectedMaterial = boundGridTargetVisualiserSO.validColor;
+			case GridTargetState.VALID_MOVEMENT:
+				selectedMaterial = boundGridTargetVisualiserSO.validMovementColor;
+				break;
+			case GridTargetState.VALID_ATTACK:
+				selectedMaterial = boundGridTargetVisualiserSO.validAttackColor;
 				break;
 			default:
 				selectedMaterial = boundGridTargetVisualiserSO.defaultColor;

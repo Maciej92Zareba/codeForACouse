@@ -1,5 +1,6 @@
 public enum GridTargetState
 {
 	DEFAULT = 0,
-	VALID = 2
+	VALID_MOVEMENT = 1,
+	VALID_ATTACK = 2
 }

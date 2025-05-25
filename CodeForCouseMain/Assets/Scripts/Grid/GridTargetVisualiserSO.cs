@@ -5,5 +5,6 @@ public class GridTargetVisualiserSO : ScriptableObject
 {
     public Material defaultColor;
     public Material highlightedColor;
-    public Material validColor;
+    public Material validMovementColor;
+    public Material validAttackColor;
 }

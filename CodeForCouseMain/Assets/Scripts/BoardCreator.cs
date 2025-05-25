@@ -3,8 +3,10 @@ using UnityEngine;
 public class BoardCreator : MonoBehaviour
 {
 	[SerializeField] private EnemiesManager boundEnemiesManager;
+	[SerializeField] Vector2Int enemiesRange = new (2, 5);
+	[SerializeField] private ObstacleManager boundObstacleManager;
+	[SerializeField] Vector2Int obstaclesRange = new (1, 3);
 	[SerializeField] private GridController boundGridController;
-	[SerializeField] Vector2Int enemiesRange = new Vector2Int(2, 5);
 	[SerializeField] private Character player;
 
 	private void Awake ()
@@ -16,12 +18,14 @@ public class BoardCreator : MonoBehaviour
 	{
 		PreparePlayer();
 		PrepareEnemies();
+		PrepareObstacles();
 	}
 
 	private void PreparePlayer ()
 	{
 		GridTarget gridTarget = boundGridController.GridTargets2dArray[0, 0];
-		player.SetCharacterDestination(gridTarget.PlacedObjectParent.position, 0, 0);
+		gridTarget.IsObstructed = true;
+		player.transform.position = gridTarget.PlacedObjectParent.position;
 	}
 
 	private void PrepareEnemies ()
@@ -35,6 +39,19 @@ public class BoardCreator : MonoBehaviour
 		}
 
 		boundEnemiesManager.SpawnEnemies(enemiesGridTargets);
+	}
+
+	private void PrepareObstacles ()
+	{
+		int numbersOfObstacles = Random.Range(obstaclesRange.x, obstaclesRange.y);
+		GridTarget[] obstaclesGridTargets = new GridTarget[numbersOfObstacles];
+
+		for (int i = 0; i < obstaclesGridTargets.Length; i++)
+		{
+			obstaclesGridTargets[i] = FindRandomValidGridTarget();
+		}
+
+		boundObstacleManager.SpawnObstacles(obstaclesGridTargets);
 	}
 
 	private GridTarget FindRandomValidGridTarget ()
