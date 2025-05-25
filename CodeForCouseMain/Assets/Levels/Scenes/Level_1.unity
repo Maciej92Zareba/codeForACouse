@@ -24860,6 +24860,14 @@ PrefabInstance:
       propertyPath: gridController
       value: 
       objectReference: {fileID: 1661716707}
+    - target: {fileID: 6016320825152961404, guid: 0a847efabbb426b4098e604d53386443, type: 3}
+      propertyPath: enemyPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016320825152961404, guid: 0a847efabbb426b4098e604d53386443, type: 3}
+      propertyPath: 'enemyPrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 3661650219869078337, guid: f3f26804650d6ff4bbb724bb568ae6de, type: 3}
     - target: {fileID: 8688349964486286785, guid: 0a847efabbb426b4098e604d53386443, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
