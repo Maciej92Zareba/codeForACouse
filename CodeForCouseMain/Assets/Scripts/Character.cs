@@ -91,18 +91,19 @@ public class Character : BaseBoardObject
 
 	public override void ReactOnGettingAttacked (int damage)
 	{
+		Debug.Log($"ReactOnGettingAttacked {damage}", gameObject);
 		currentHealth -= damage;
 
 		if (currentHealth <= 0)
 		{
-			//boundAudioSource.clip = onDeathAudioClip;
+			boundAudioSource.clip = onDeathAudioClip;
+			boundAudioSource.Play();
 			OnDie();
 		}
 		else
 		{
-			//boundAudioSource.clip = onHitAudioClip;
+			boundAudioSource.clip = onHitAudioClip;
+			boundAudioSource.Play();
 		}
-		
-		//boundAudioSource.Play();
 	}
 }
