@@ -15,6 +15,10 @@ public class Enemy : Character
 
     protected override void OnDie ()
     {
+        Debug.Log("OnEnemyDied");
+        boundAnimator.SetBool(deadAnimation, true);
+        ResetPlacedObject();
+        boundAgent.enabled = false;
         OnEnemyDied();
     }
 }

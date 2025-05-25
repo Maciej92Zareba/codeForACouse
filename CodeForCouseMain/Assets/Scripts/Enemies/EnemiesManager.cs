@@ -19,7 +19,9 @@ public class EnemiesManager : MonoBehaviour
 			GameObject enemyToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 			Quaternion spawnRot = Quaternion.identity;
 			Instantiate(enemyToSpawn, gridTargets[i].PlacedObjectParent.position, spawnRot, enemiesParent.transform);
-			enemies.Add(enemyToSpawn.GetComponent<Enemy>());
+			Enemy enemy = enemyToSpawn.GetComponent<Enemy>();
+			enemy.InitializeBoardObject(gridTargets[i]);
+			enemies.Add(enemy);
 		}
 	}
 

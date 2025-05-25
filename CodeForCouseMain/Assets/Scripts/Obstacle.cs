@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class Obstacle : BaseBoardObject
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+	[SerializeField] private AudioSource boundAudioSource;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public override void ReactOnGettingAttacked (int damage)
+	{
+		boundAudioSource.Play();
+	}
 }

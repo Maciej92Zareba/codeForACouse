@@ -12,6 +12,8 @@ public class ObstacleManager : MonoBehaviour
             GameObject enemyToSpawn = obstaclesPrefabs[Random.Range(0, obstaclesPrefabs.Count)];
             Quaternion spawnRot = Quaternion.identity;
             Instantiate(enemyToSpawn, gridTargets[i].PlacedObjectParent.position, spawnRot, transform);
+            Obstacle obstacle = enemyToSpawn.GetComponent<Obstacle>();
+            obstacle.InitializeBoardObject(gridTargets[i]);
         }
     }
 }

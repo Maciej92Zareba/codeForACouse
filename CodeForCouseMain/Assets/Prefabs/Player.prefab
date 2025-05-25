@@ -491,10 +491,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 2991163110258633958}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.35
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 0
   m_AngularSpeed: 300
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -520,6 +520,7 @@ MonoBehaviour:
   boundAnimator: {fileID: 8370295565723528230}
   startWalkingCharacterBool: isWalking
   characterStartHealthPoints: 1
+  deadAnimation: isDead
   <BoundActionData>k__BackingField: {fileID: 0}
   onHitAudioClip: {fileID: 8300000, guid: 4954b5933fd2b53419d22d44cda4669e, type: 3}
   onDeathAudioClip: {fileID: 8300000, guid: be2832e6827e70d4580485e7196ac148, type: 3}

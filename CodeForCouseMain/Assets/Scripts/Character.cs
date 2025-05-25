@@ -13,6 +13,7 @@ public class Character : BaseBoardObject
 	[SerializeField] protected Animator boundAnimator;
 	[SerializeField] protected string startWalkingCharacterBool;
 	[SerializeField] protected int characterStartHealthPoints = 1;
+	[SerializeField] protected string deadAnimation;
 	[field: SerializeField] public ActionDataSO BoundActionData { get; protected set; }
 	
 	[SerializeField] protected AudioClip onHitAudioClip;
@@ -24,15 +25,12 @@ public class Character : BaseBoardObject
 	private int cachedIsWalkingID;
 	private int currentHealth;
 	
-	private BaseBoardObject cachedAttackedTarget; 
-
-	//[ShowInInspector, ReadOnly] public GridPosition CharacterGridPosition { get; private set; } = new(0, 0);
+	private BaseBoardObject cachedAttackedTarget;
 
 	private const float VELOCITY_THRESHOLD = 0.01f;
 
 	public void SetCharacterDestination (GridTarget gridTarget)
 	{
-		//Reset previous
 		ResetPlacedObject();
 		
 		PlacedOnGrid = gridTarget;

@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: e4c88fe2e81511d4dae9da620550ecf9
+AssetOrigin:
+  serializedVersion: 1
+  productId: 311643
+  packageName: Goblin LowPoly - Animation
+  packageVersion: 1.0
+  assetPath: Assets/Goblin_Character/Model/Goblin.fbx
+  uploadId: 734482
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -88,7 +95,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.01
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -105,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 311643
-  packageName: Goblin LowPoly - Animation
-  packageVersion: 1.0
-  assetPath: Assets/Goblin_Character/Model/Goblin.fbx
-  uploadId: 734482
