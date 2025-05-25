@@ -1,14 +1,14 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    public UnityEvent OnMyTurnEnd;    
+    public event Action OnFinishedTurn = delegate {};
 
     public void PerformTurn()
     {
         //do something
-
-        OnMyTurnEnd.Invoke();
+        Debug.Log("Performed turn", gameObject);
+        OnFinishedTurn();
     }
 }

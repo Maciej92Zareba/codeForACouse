@@ -18,6 +18,7 @@ public class GridController : SerializedMonoBehaviour
 
 	private void UpdateValidGridsToMove (MovementData movementData, GridPosition caller)
 	{
+		//TODO add ignore obstructed
 		UpdateValidGridsToMove(caller, movementData.CanMoveNormal, movementData.DistanceToMoveNormal, 
 							   movementData.CanMoveDiagonal, movementData.DistanceToMoveDiagonal);
 		
@@ -29,6 +30,7 @@ public class GridController : SerializedMonoBehaviour
 	
 	private void UpdateValidGridsToAttack (AttackData attackData, GridPosition caller)
 	{
+		//TODO add dont ignore obstructed
 		UpdateValidGridsToMove(caller, attackData.CanAttackNormal, attackData.NormalDistanceToAttack, 
 							   attackData.CanAttackDiagonal, attackData.DiagonalDistanceAttack);
 		
@@ -100,9 +102,12 @@ public class GridController : SerializedMonoBehaviour
 
 	private void OnDestroy ()
 	{
-		GlobalActions.Instance.RestoreDefaultBoardLook -= RestoreDefaultLook;
-		GlobalActions.Instance.UpdateValidGridsToMove -= UpdateValidGridsToMove;
-		GlobalActions.Instance.UpdateValidGridsToAttack -= UpdateValidGridsToAttack;
+		if (GlobalActions.Instance != null)
+		{
+			GlobalActions.Instance.RestoreDefaultBoardLook -= RestoreDefaultLook;
+			GlobalActions.Instance.UpdateValidGridsToMove -= UpdateValidGridsToMove;
+			GlobalActions.Instance.UpdateValidGridsToAttack -= UpdateValidGridsToAttack;
+		}
 	}
 
 	private void RestoreDefaultLook ()

@@ -469,7 +469,7 @@ PrefabInstance:
       addedObject: {fileID: 2160742481619011351}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6139988797945307364}
+      addedObject: {fileID: 524536123276829447}
   m_SourcePrefab: {fileID: 100100000, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
 --- !u!1 &2991163110258633958 stripped
 GameObject:
@@ -498,7 +498,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6139988797945307364
+--- !u!114 &524536123276829447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -507,13 +507,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2991163110258633958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b264429e4f44b4eab831545d9fbb25, type: 3}
+  m_Script: {fileID: 11500000, guid: 305380feb05f9614794662d569c3e0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boundAgent: {fileID: 2160742481619011351}
   boundAnimator: {fileID: 8370295565723528230}
   startWalkingCharacterBool: isWalking
-  boundCharacterData: {fileID: 11400000, guid: 47a92ba0559030042a5289e60ffa4c0e, type: 2}
+  <BoundActionData>k__BackingField: {fileID: 0}
+  onHitAudioClip: {fileID: 0}
+  onDeathAudioClip: {fileID: 0}
+  boundAudioSource: {fileID: 0}
 --- !u!4 &5287106968508975028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7790177421927552515, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}

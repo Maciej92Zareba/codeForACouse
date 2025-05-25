@@ -1,12 +1,9 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CharacterDataSO", menuName = "Scriptable Objects/CharacterDataSO")]
-public class CharacterDataSO : ScriptableObject
+[CreateAssetMenu(fileName = "ActionDataSO", menuName = "Scriptable Objects/ActionDataSO")]
+public class ActionDataSO : ScriptableObject
 {
-    [Header("Health Settings")]
-    [SerializeField] int healthPoints = 1;
-
     [Header("Movement Settings")]
     [SerializeField] public MovementData movementData;
 
@@ -30,4 +27,5 @@ public class AttackData
     [field: SerializeField, ShowIf(nameof(CanAttackNormal))] public int NormalDistanceToAttack { get; private set; } = 2;
     [field: SerializeField] public bool CanAttackDiagonal { get; private set; } = true;
     [field: SerializeField, ShowIf(nameof(CanAttackDiagonal))] public int DiagonalDistanceAttack { get; private set; } = 1;
+    [field: SerializeField] public string AttackAnimationName { get; private set; } = string.Empty;
 }

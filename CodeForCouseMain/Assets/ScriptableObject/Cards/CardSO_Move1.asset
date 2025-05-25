@@ -12,13 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8ec09e84ea5c641a35e37393f450c9, type: 3}
   m_Name: CardSO_Move1
   m_EditorClassIdentifier: 
-  canMoveNormal: 1
-  cardNormalDistanceToMoveNormal: 1
-  canMoveDiagonal: 0
-  cardNormalDistanceToMoveDiagonal: 1
-  canAttackNormal: 1
-  cardNormalDistanceToAttackNormal: 1
-  canAttackDiagonal: 0
-  cardNormalDistanceToAttackDiagonal: 1
+  boundActionData: {fileID: 11400000, guid: fb04985c157f52648be80c8ced9910bf, type: 2}
   cardDescription: Move 1
   cost: 5

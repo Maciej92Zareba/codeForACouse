@@ -2235,7 +2235,7 @@ PrefabInstance:
     - target: {fileID: 2110936316349823365, guid: 20eb683a1a4f733428f072551481efd3, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1873947868902976200}
+      objectReference: {fileID: 1873947868902976204}
     - target: {fileID: 2110936316349823365, guid: 20eb683a1a4f733428f072551481efd3, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -11845,7 +11845,7 @@ PrefabInstance:
     - target: {fileID: 8694485873010472438, guid: b51f9fb36013d3a469a64c02fafc4a48, type: 3}
       propertyPath: playerCharacter
       value: 
-      objectReference: {fileID: 1873947868902976200}
+      objectReference: {fileID: 0}
     - target: {fileID: 8694485873010472438, guid: b51f9fb36013d3a469a64c02fafc4a48, type: 3}
       propertyPath: removalCostText
       value: 
@@ -19015,7 +19015,7 @@ MonoBehaviour:
   boundObstacleManager: {fileID: 534897685}
   obstaclesRange: {x: 1, y: 3}
   boundGridController: {fileID: 1661716707}
-  player: {fileID: 1873947868902976200}
+  player: {fileID: 1873947868902976204}
 --- !u!4 &1454939538
 Transform:
   m_ObjectHideFlags: 0
@@ -27722,7 +27722,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 942242150}
         m_TargetAssemblyTypeName: DeckManager, Assembly-CSharp
-        m_MethodName: CardRemovalEvent
+        m_MethodName: StartCardRemoval
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -29390,15 +29390,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1873947868902976200 stripped
+--- !u!114 &1873947868902976204 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6139988797945307364, guid: b15c12d35f953334195d48c9930a90ea, type: 3}
+  m_CorrespondingSourceObject: {fileID: 524536123276829447, guid: b15c12d35f953334195d48c9930a90ea, type: 3}
   m_PrefabInstance: {fileID: 4398350930995543130}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b264429e4f44b4eab831545d9fbb25, type: 3}
+  m_Script: {fileID: 11500000, guid: 305380feb05f9614794662d569c3e0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2248462902596088268

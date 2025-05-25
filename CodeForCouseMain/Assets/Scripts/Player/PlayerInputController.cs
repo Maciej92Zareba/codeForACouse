@@ -6,32 +6,39 @@ public class PlayerInputController : MonoBehaviour
 {
     [SerializeField] private LayerMask targetsLayer;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private Character player;
+    [SerializeField] private Player player;
 
     private DefaultInputActions defaultInputActions;
     private GridTarget cachedGridTarget;
     private Action cachedPlayerArrivedAtDestinationAction;
+    private Action cachedPlayerFinishedAttack;
     private Action<InputAction.CallbackContext> cachedMouseButtonReleasedAction;
 
     private void Awake ()
     {
         defaultInputActions = new();
         cachedPlayerArrivedAtDestinationAction = HandlePlayerArrivedAtDestination;
+        cachedPlayerFinishedAttack = HandlePlayerFinishedAttack;
         cachedMouseButtonReleasedAction = HandleMouseButtonReleased;
     }
 
     private void Start ()
     {
         GlobalActions.Instance.OnTurnChange += HandleTurnChanged;
+        GlobalActions.Instance.OnCardPlayed += HandleCardPlayed;
+        enabled = false;
+    }
+
+    private void HandleCardPlayed (ActionDataSO obj)
+    {
+        enabled = true;
     }
 
     private void HandleTurnChanged (bool isPlayerTurn)
     {
-        enabled = isPlayerTurn;
-
-        if (isPlayerTurn == true)
+        if (isPlayerTurn == false)
         {
-            GlobalActions.Instance.RequestUpdateValidGridsToMove(player.boundCharacterData.movementData, player.CharacterGridPosition);
+            enabled = false;
         }
     }
 
@@ -61,7 +68,8 @@ public class PlayerInputController : MonoBehaviour
             
             if (cachedGridTarget != null && cachedGridTarget.CurrentState == GridTargetState.VALID_ATTACK)
             {
-                //PerformAttack
+                player.OnAttackFinished += cachedPlayerFinishedAttack;
+                player.Attack(cachedGridTarget.PlacedObjectParent.position);
                 GlobalActions.Instance.NotifyOnRestoreDefaultBoardLook();
             }
         }
@@ -70,12 +78,19 @@ public class PlayerInputController : MonoBehaviour
     private void HandlePlayerArrivedAtDestination ()
     {
         player.OnArrivedAtDestination -= cachedPlayerArrivedAtDestinationAction;
-        GlobalActions.Instance.RequestUpdateValidGridsToAttack(player.boundCharacterData.attackData, player.CharacterGridPosition);
+        GlobalActions.Instance.RequestUpdateValidGridsToAttack(player.BoundActionData.attackData, player.CharacterGridPosition);
+    }
+
+    private void HandlePlayerFinishedAttack ()
+    {
+        player.OnAttackFinished -= cachedPlayerFinishedAttack;
+        GlobalActions.Instance.NotifyOnPlayerFinishedAttack();
     }
 
     private void OnDestroy ()
     {
         GlobalActions.Instance.OnTurnChange -= HandleTurnChanged;
+        GlobalActions.Instance.OnCardPlayed -= HandleCardPlayed;
     }
 
     private void FixedUpdate ()

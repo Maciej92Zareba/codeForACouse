@@ -4,18 +4,23 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Character : MonoBehaviour
+public class Character : BaseBoardObject
 {
 	public event Action OnArrivedAtDestination = delegate {};
+	public event Action OnAttackFinished = delegate {};
 	
-	[SerializeField] private NavMeshAgent boundAgent;
-	[SerializeField] private Animator boundAnimator;
-	[SerializeField] private string startWalkingCharacterBool;
-	[SerializeField] public CharacterDataSO boundCharacterData;
+	[SerializeField] protected NavMeshAgent boundAgent;
+	[SerializeField] protected Animator boundAnimator;
+	[SerializeField] protected string startWalkingCharacterBool;
+	[field: SerializeField] public ActionDataSO BoundActionData { get; protected set; }
+	[SerializeField] protected AudioClip onHitAudioClip;
+	[SerializeField] protected AudioClip onDeathAudioClip;
+	[SerializeField] protected AudioSource boundAudioSource;
 
 	private Coroutine cachedDestinationCheckCoroutine;
 	private WaitUntil playerAtDestinationCondition;
 	private int cachedIsWalkingID;
+	private int currentHealth;
 
 	[ShowInInspector, ReadOnly] public GridPosition CharacterGridPosition { get; private set; } = new(0, 0);
 
@@ -25,6 +30,12 @@ public class Character : MonoBehaviour
 	{
 		CharacterGridPosition.SetGridPosition(row, column);
 		SetAgentDestination(target);
+	}
+
+	public void Attack (Vector3 attackedPosition)
+	{
+		transform.LookAt(attackedPosition);
+		boundAnimator.SetTrigger(BoundActionData.attackData.AttackAnimationName);
 	}
 
 	[Button]
@@ -40,7 +51,7 @@ public class Character : MonoBehaviour
 		cachedDestinationCheckCoroutine = StartCoroutine(PlayerArrivedAtDestination());
 	}
 
-	private void Awake ()
+	protected void Awake ()
 	{
 		playerAtDestinationCondition = new WaitUntil(IsPlayerAtDestination);
 		cachedIsWalkingID = Animator.StringToHash(startWalkingCharacterBool);
@@ -58,5 +69,27 @@ public class Character : MonoBehaviour
 	private bool IsPlayerAtDestination ()
 	{
 		return boundAgent.hasPath == false && boundAgent.velocity.sqrMagnitude <= VELOCITY_THRESHOLD;
+	}
+
+	private void OnAttackAnimationFinished ()
+	{
+		OnAttackFinished();
+	}
+
+	protected override void ReactOnGettingAttacked (int damage)
+	{
+		currentHealth -= damage;
+
+		if (currentHealth <= 0)
+		{
+			boundAudioSource.clip = onDeathAudioClip;
+			//Die
+		}
+		else
+		{
+			boundAudioSource.clip = onHitAudioClip;
+		}
+		
+		boundAudioSource.Play();
 	}
 }

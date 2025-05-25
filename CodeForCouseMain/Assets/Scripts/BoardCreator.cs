@@ -7,7 +7,7 @@ public class BoardCreator : MonoBehaviour
 	[SerializeField] private ObstacleManager boundObstacleManager;
 	[SerializeField] Vector2Int obstaclesRange = new (1, 3);
 	[SerializeField] private GridController boundGridController;
-	[SerializeField] private Character player;
+	[SerializeField] private Player player;
 
 	private void Awake ()
 	{

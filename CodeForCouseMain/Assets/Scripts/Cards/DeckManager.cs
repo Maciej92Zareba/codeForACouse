@@ -1,14 +1,12 @@
-﻿using NUnit.Framework;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class DeckManager : MonoBehaviour
 {
-    [SerializeField] GridController gridController;
-    [SerializeField] Character playerCharacter;
     [SerializeField] EconomyManager economyManager;
 
     [SerializeField] List<Card> allPlayableCards;
@@ -21,8 +19,9 @@ public class DeckManager : MonoBehaviour
     [SerializeField] TMP_Text handText;
     Card currentCardInHand;
     
+    [FormerlySerializedAs("isCardSelectionEventActive")]
     [Header("Card Selection Event Settings")]
-    [HideInInspector] public bool isCardSelectionEventActive = false;
+    [HideInInspector] public bool isCardSelectionInProgress = false;
     [SerializeField] GameObject cardSelectionScreen;
     [SerializeField] TMP_Text[] cardTextsForSelectionEvent;
     [SerializeField] TMP_Text[] cardCostTextsForSelectionEvent;
@@ -36,15 +35,32 @@ public class DeckManager : MonoBehaviour
     [SerializeField] int removalCost = 5;
 
     [Header("Events")]
-    public UnityEvent cardDrawn;    
     public UnityEvent cardPlayed;    
     public UnityEvent cardSelectionOver;
-    public UnityEvent deckChanged;
     public UnityEvent drawPileChanged;
 
     private void Awake()
     {
-        removalCostText.text = removalCostText.text + removalCost.ToString();
+        removalCostText.text += removalCost.ToString();
+        GiveStartingCards();
+    }
+
+    private void Start ()
+    {
+        GlobalActions.Instance.OnTurnChange += HandleTurnChanged;
+    }
+
+    private void OnDestroy ()
+    {
+        GlobalActions.Instance.OnTurnChange -= HandleTurnChanged;
+    }
+
+    private void HandleTurnChanged (bool isPlayerTurn)
+    {
+        if (isPlayerTurn == true)
+        {
+            StartCardSelection();
+        }
     }
 
     [Button]
@@ -56,7 +72,7 @@ public class DeckManager : MonoBehaviour
             drawPileChanged.Invoke();
         }
         
-        cardSelectionOver.RemoveListener(DrawCard);
+        //cardSelectionOver.RemoveListener(DrawCard);
         int cardToDrawIndex = Random.Range(0, drawPile.Count);
         Card cardToDraw = drawPile[cardToDrawIndex];
         drawPile.Remove(cardToDraw);
@@ -66,22 +82,14 @@ public class DeckManager : MonoBehaviour
 
         handText.text = cardToDraw.cardSO.cardDescription;
         activeCard.gameObject.SetActive(true);
-
-        cardDrawn.Invoke();
     }
+    
     public void PlayCard()
     {
-        GridPosition caller = playerCharacter.CharacterGridPosition;
-        bool canMoveNormal = currentCardInHand.cardSO.canMoveNormal;
-        int normalDistanceToMove = currentCardInHand.cardSO.cardNormalDistanceToMoveNormal;
-        bool canMoveDiagonal = currentCardInHand.cardSO.canMoveDiagonal;
-        int diagonalDistanceToMove = currentCardInHand.cardSO.cardNormalDistanceToMoveDiagonal;
-        
-        gridController.UpdateValidGridsToMove(caller, canMoveNormal, normalDistanceToMove, canMoveDiagonal, diagonalDistanceToMove); //pogadać z Maćkiem bo nie działa 
-
         activeCard.gameObject.SetActive(false);
 
         cardPlayed.Invoke();
+        GlobalActions.Instance.NotifyOnCardPlayed(currentCardInHand.cardSO.boundActionData);
     }
 
     public void GiveStartingCards()
@@ -96,9 +104,9 @@ public class DeckManager : MonoBehaviour
         deck.Add(cardToAdd);
     }
 
-    public void CardSelectionEvent()
+    public void StartCardSelection()
     {
-        isCardSelectionEventActive = true;
+        isCardSelectionInProgress = true;
 
         cardSelectionScreen.SetActive(true);
 
@@ -112,7 +120,6 @@ public class DeckManager : MonoBehaviour
 
             selectionEventCards.Add(card);
         }
-        cardSelectionOver.AddListener(DrawCard);
     }
 
     public void CardSelected(int cardChosenIndex)
@@ -126,11 +133,12 @@ public class DeckManager : MonoBehaviour
             card.gameObject.SetActive(false);
         }
 
-        isCardSelectionEventActive = false;
-        cardSelectionOver.Invoke();
+        isCardSelectionInProgress = false;
+        //cardSelectionOver.Invoke();
         economyManager.AddCurrency(-chosenCard.cardSO.cost);
         GainCard(chosenCard);
         ClearSelectionActionScreen();
+        DrawCard();
     }
 
     public void SkipCardSelection()
@@ -141,11 +149,11 @@ public class DeckManager : MonoBehaviour
     {
         selectionEventCards.Clear();
         cardSelectionScreen.SetActive(false);
-        isCardSelectionEventActive = false; // zapytać Maćka czy da się to poprawić (na pewno się da xd) dla mnie to wygląda jakby powinno być eventem boolowym
+        isCardSelectionInProgress = false; // zapytać Maćka czy da się to poprawić (na pewno się da xd) dla mnie to wygląda jakby powinno być eventem boolowym
 
         cardSelectionOver.Invoke();
     }
-    public void CardRemovalEvent()
+    public void StartCardRemoval()
     {
         foreach (GameObject cardGO in cardGOForRemovalEvent)
         {
@@ -168,7 +176,7 @@ public class DeckManager : MonoBehaviour
         Card cardToRemove = deck[index];
         deck.Remove(cardToRemove);
         economyManager.AddCurrency(-removalCost);
-        CardRemovalEvent();
+        StartCardRemoval();
 
         if (drawPile.Contains(cardToRemove))
         {
