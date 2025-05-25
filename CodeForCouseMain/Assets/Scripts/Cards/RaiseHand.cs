@@ -9,21 +9,19 @@ public class RaiseHand : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] float targetPosYOnHover = -280f;
     [SerializeField] float targetRotXOnHover = 0f;
     [SerializeField] private float cardRaiseTime = 0.2f;
-    private float defaultPosY = -400f;
-    private float defaultRotX = 30;
+
+    [SerializeField] Vector2 inHandPos = new Vector3(0, -400);
+    [SerializeField] Quaternion inHandRot = Quaternion.Euler(30, 0, 0);
+
+    [SerializeField] Vector2 deckPos = new Vector3(0, -650);
+    [SerializeField] Quaternion deckRot = Quaternion.Euler(45, 0, 0);
+    [SerializeField] float cardDrawTime = 1f;
 
     [SerializeField] RectTransform rectTransform;
 
-    private void Awake()
-    {     
-        defaultPosY = rectTransform.anchoredPosition.y;
-        defaultRotX = rectTransform.rotation.eulerAngles.x;
-    }
-
     private void OnEnable()
     {
-        rectTransform.anchoredPosition = new Vector2(0, defaultPosY);
-        rectTransform.rotation = Quaternion.Euler(defaultRotX, 0, 0);
+        StartCoroutine(DrawCardRoutine());
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -61,8 +59,20 @@ public class RaiseHand : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         float tElapsed = 0f;
         while (cardRaiseTime > tElapsed)
         {
-            rectTransform.anchoredPosition = new Vector2(0, Mathf.Lerp(startPos, defaultPosY, tElapsed / cardRaiseTime));
-            rectTransform.rotation = Quaternion.Euler(Mathf.Lerp(startRot, defaultRotX, tElapsed / cardRaiseTime), 0, 0);
+            rectTransform.anchoredPosition = new Vector2(0, Mathf.Lerp(startPos, inHandPos.y, tElapsed / cardRaiseTime));
+            rectTransform.rotation = Quaternion.Euler(Mathf.Lerp(startRot, inHandRot.x, tElapsed / cardRaiseTime), 0, 0);
+            tElapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private IEnumerator DrawCardRoutine()
+    {
+        float tElapsed = 0f;
+        while (cardDrawTime > tElapsed)
+        {
+            rectTransform.anchoredPosition = new Vector2(Mathf.Lerp(deckPos.x, inHandPos.x, tElapsed / cardDrawTime), Mathf.Lerp(deckPos.y, inHandPos.y, tElapsed / cardDrawTime));
+            rectTransform.rotation = Quaternion.Euler(Mathf.Lerp(deckRot.x, inHandPos.x, tElapsed / cardDrawTime), 0, 0);
             tElapsed += Time.deltaTime;
             yield return null;
         }

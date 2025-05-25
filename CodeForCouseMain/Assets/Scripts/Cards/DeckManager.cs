@@ -144,6 +144,7 @@ public class DeckManager : MonoBehaviour
     public void SkipCardSelection()
     {
         ClearSelectionActionScreen();
+        DrawCard();
     }
     private void ClearSelectionActionScreen()
     {

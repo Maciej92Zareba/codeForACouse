@@ -125,4 +125,9 @@ MonoBehaviour:
   targetPosYOnHover: -280
   targetRotXOnHover: 0
   cardRaiseTime: 0.2
+  inHandPos: {x: 0, y: -400}
+  inHandRot: {x: 0.25881904, y: 0, z: 0, w: 0.9659258}
+  deckPos: {x: 0, y: -650}
+  deckRot: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
+  cardDrawTime: 0.3
   rectTransform: {fileID: 3008997274542925238}
