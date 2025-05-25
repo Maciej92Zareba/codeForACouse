@@ -6,8 +6,11 @@ public class GridTarget : MonoBehaviour
 	[SerializeField] private MeshRenderer gridMesh;
 	[SerializeField] private GridTargetVisualiserSO boundGridTargetVisualiserSO;
 	[field: SerializeField] public GridPosition BoundGridPosition { get; set; }
-	[field: SerializeField] public bool IsObstructed { get; set; }
 	[field: SerializeField] public Transform PlacedObjectParent { get; private set; }
+	
+	[ShowInInspector, ReadOnly] public bool IsObstructed { get; set; }
+	[ShowInInspector, ReadOnly] public BaseBoardObject PlaceObjectOnGrid { get; set; }
+	
 	
 	[ShowInInspector, ReadOnly] public GridTargetState CurrentState { get; private set; } = GridTargetState.DEFAULT;
 

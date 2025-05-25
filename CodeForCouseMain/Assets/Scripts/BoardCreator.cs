@@ -24,8 +24,8 @@ public class BoardCreator : MonoBehaviour
 	private void PreparePlayer ()
 	{
 		GridTarget gridTarget = boundGridController.GridTargets2dArray[0, 0];
-		gridTarget.IsObstructed = true;
 		player.transform.position = gridTarget.PlacedObjectParent.position;
+		player.InitializeBoardObject(gridTarget);
 	}
 
 	private void PrepareEnemies ()

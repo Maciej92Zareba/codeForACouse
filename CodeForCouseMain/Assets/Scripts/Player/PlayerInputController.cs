@@ -61,15 +61,14 @@ public class PlayerInputController : MonoBehaviour
             if (cachedGridTarget != null && cachedGridTarget.CurrentState == GridTargetState.VALID_MOVEMENT)
             {
                 player.OnArrivedAtDestination += cachedPlayerArrivedAtDestinationAction;
-                player.SetCharacterDestination(cachedGridTarget.PlacedObjectParent.position, cachedGridTarget.BoundGridPosition.RowIndex, cachedGridTarget.BoundGridPosition.ColumnIndex);
-                cachedGridTarget.IsObstructed = true;
+                player.SetCharacterDestination(cachedGridTarget);
                 GlobalActions.Instance.NotifyOnRestoreDefaultBoardLook();
             }
             
             if (cachedGridTarget != null && cachedGridTarget.CurrentState == GridTargetState.VALID_ATTACK)
             {
                 player.OnAttackFinished += cachedPlayerFinishedAttack;
-                player.Attack(cachedGridTarget.PlacedObjectParent.position);
+                player.Attack(cachedGridTarget);
                 GlobalActions.Instance.NotifyOnRestoreDefaultBoardLook();
             }
         }
@@ -78,7 +77,7 @@ public class PlayerInputController : MonoBehaviour
     private void HandlePlayerArrivedAtDestination ()
     {
         player.OnArrivedAtDestination -= cachedPlayerArrivedAtDestinationAction;
-        GlobalActions.Instance.RequestUpdateValidGridsToAttack(player.BoundActionData.attackData, player.CharacterGridPosition);
+        GlobalActions.Instance.RequestUpdateValidGridsToAttack(player.BoundActionData.attackData, player.PlacedOnGrid.BoundGridPosition);
     }
 
     private void HandlePlayerFinishedAttack ()

@@ -470,6 +470,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
       insertIndex: -1
       addedObject: {fileID: 524536123276829447}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5642774146653163001}
   m_SourcePrefab: {fileID: 100100000, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}
 --- !u!1 &2991163110258633958 stripped
 GameObject:
@@ -517,6 +520,23 @@ MonoBehaviour:
   onHitAudioClip: {fileID: 0}
   onDeathAudioClip: {fileID: 0}
   boundAudioSource: {fileID: 0}
+--- !u!114 &5642774146653163001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2991163110258633958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cca5fae76d87924c982b32030d8f088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetsLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  mainCamera: {fileID: 0}
+  player: {fileID: 524536123276829447}
 --- !u!4 &5287106968508975028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7790177421927552515, guid: 35c44a97c30e4e946a0f4d3310613b95, type: 3}

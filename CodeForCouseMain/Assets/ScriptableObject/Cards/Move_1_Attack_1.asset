@@ -22,4 +22,4 @@ MonoBehaviour:
     <NormalDistanceToAttack>k__BackingField: 1
     <CanAttackDiagonal>k__BackingField: 0
     <DiagonalDistanceAttack>k__BackingField: 1
-    <AttackAnimationName>k__BackingField: 
+    <AttackAnimationName>k__BackingField: Diagonal

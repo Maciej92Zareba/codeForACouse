@@ -13,6 +13,11 @@ public class Player : Character
     private void ChangePlayerCard (ActionDataSO dataSO)
     {
         BoundActionData = dataSO;
-        GlobalActions.Instance.RequestUpdateValidGridsToMove(BoundActionData.movementData, CharacterGridPosition);
+        GlobalActions.Instance.RequestUpdateValidGridsToMove(BoundActionData.movementData, PlacedOnGrid.BoundGridPosition);
+    }
+    
+    protected override void OnDie ()
+    {
+        //SendEvent player died end game
     }
 }

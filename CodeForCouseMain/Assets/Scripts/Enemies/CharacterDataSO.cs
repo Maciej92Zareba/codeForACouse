@@ -28,4 +28,5 @@ public class AttackData
     [field: SerializeField] public bool CanAttackDiagonal { get; private set; } = true;
     [field: SerializeField, ShowIf(nameof(CanAttackDiagonal))] public int DiagonalDistanceAttack { get; private set; } = 1;
     [field: SerializeField] public string AttackAnimationName { get; private set; } = string.Empty;
+    [field: SerializeField] public int AttackDamage { get; private set; } = 1;
 }
